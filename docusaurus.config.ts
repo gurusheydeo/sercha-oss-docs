@@ -37,7 +37,7 @@ const config: Config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
   plugins: [
     // CLI docs (versioned)
@@ -64,6 +64,25 @@ const config: Config = {
         includeCurrentVersion: true,
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
+        docItemComponent: '@theme/ApiItem',
+      },
+    ],
+    // OpenAPI docs generator
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: 'api-docs',
+        docsPluginId: 'core',
+        config: {
+          sercha: {
+            specPath: './openapi/swagger.yaml',
+            outputDir: 'docs/core/api_reference',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+              categoryLinkSource: 'tag',
+            },
+          },
+        },
       },
     ],
   ],

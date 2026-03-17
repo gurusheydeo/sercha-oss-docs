@@ -1,0 +1,71 @@
+---
+id: list-source-documents
+title: "List source documents"
+description: "Get all documents indexed from a specific source with pagination support."
+sidebar_label: "List source documents"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVV0tv2zgQ/iuETi3gWE7QBQrfvG22yDZtg7rBHlIjGEsjiw1FqiSVxCv4v++MKEeyLXe7j0suiSTO45vhNw/XUYousbL00uhoGr1DL0ApkZqkKlB7J6RO8RFTkVlTCBCuxERmMhHOVDZB8SB9LkpYSQ1sQriqLI3142gUlWChQI/WRdObes/RPKhfvCVByR9K8Dk9a1KhN5nSs8XvlbSYRlNvKxxFLsmxgGhaR35dspTzVupVtNmM9s1/gEdZVIXQVbFEK0zWi8gbYdFXVosXKWZQKS/OJiNRwKM4nUxebgF9r9CuO0RKFtJHAyCk9rhCO4Ti47B3dyfLzvdRjybLHP6NywVnyZVGO3QscDaZ8L9dGJ/ek5HEkJL2fAplqWTS3Ff8zbFI3fOxq3sVrpYIoKTzu6EsURlNxysOClpG8MVbU6L1MkB6kucX6bFoHnZlEovs4xb8wO2OInwkFmlQt0SLA4QXbwM3fY5bUrq1Iz+E5MBSMHD4OZD8mH9iMaTgm/RAmkr2DOpqJ4QDpfaDWX7DxDdWZIG34euAeMP/gfRTeRkrrj9fUiV2KT5QDye3R+Lz0qtht1WZHs/8UBTtB7AW1vwe6mKAm6MtgQfPvPGghqto3+eGv70aIvYH6RzTz22bCadK6ntQMhW99vOv2T+7uhBoLVndVtkBvZvj5uERilKFWAIC7l9IRbM06frwzo4GenqI41pD5XNj5Z+YPrNoXh3iaHu/Nl5kptLPK6Jfhoh4oUODEg7tPXX84PT5hMUNBJPKSr9uZvWvCBbtrOKWdLPgKeNhxWO8vTsXLZqumBvqN9GqmVKhgUVxKEYX1zLdxF3zZw+cm7AMVJaKP8q9L6dxrEwCKjfOT19PXp/GUMr4/jTicdqJueNyiw78nBMaEtQPYT+/v//xRYRzmlx3qMfiN2ML8FPxtdUTdXOw+Rpth3OOkKLtpvOsLcjmRrs0E6j3uG7SLHVmmuFGJICkIUGrO0eb5CA+zeekuBvjivapajlOTBEnlfMmlXCiYOli1+icJMZiTG2Pbpjb6N60sPIekvVJRll3NLKRaVla6WgkUlhJLohZY9G6f0OmBLHqXpIVkVVKnXiatAJ0SuIFaM9rXtCDxBrnxJruVlA8mohD9nkmts3X8cZHBEcmaxfprAS6EnE2nuxESoE+PDyMoTkdG7uKW1UXX168Of84Pz8hlXHuC9UbX1EfOEVCJplQIfZTcsFjlOhB0HsQLnlvaSdEn447qau7Uv1fd+CWFZzXuFRATNq0eajbgrlpRzdDmjZrbweSmM10Z6G6XoLDa6s2G/4cVsVmrZYOloqX5AyUwx/E9d924sFI7ojq3WpM7adimaZ0fx7Xz2/JP8DwtCx3IBb8YiWj+IeZevG5/eXxUvR/pwy639a9Xvedb2HRhW4WJNV2D4YRDmZJgmUf78F82PRb7LvzLyQLbTfreg0bG20f2PognP1eFSDwX76pQZW6Dp2M6LaVD0dHNZ4aZBs5R0CT5S9k9vbL
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List source documents"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sources/{id}/documents"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get all documents indexed from a specific source with pagination support.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Source ID","in":"path","name":"id","required":true,"schema":{"type":"string"}},{"description":"Maximum number of documents to return (default 20, max 100)","in":"query","name":"limit","schema":{"type":"integer"}},{"description":"Number of documents to skip (default 0)","in":"query","name":"offset","schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Paginated list of documents belonging to a source","properties":{"documents":{"items":{"properties":{"created_at":{"type":"string"},"external_id":{"description":"ID from the source system","type":"string"},"id":{"type":"string"},"indexed_at":{"type":"string"},"metadata":{"additionalProperties":{"type":"string"},"type":"object"},"mime_type":{"type":"string"},"path":{"description":"Path or URL in source","type":"string"},"source_id":{"type":"string"},"title":{"type":"string"},"updated_at":{"type":"string"}},"type":"object"},"type":"array"},"limit":{"type":"integer"},"offset":{"type":"integer"},"total":{"type":"integer"}},"type":"object"}}}},"400":{"description":"Missing source ID or invalid parameters","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"Source not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

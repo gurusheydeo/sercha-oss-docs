@@ -1,0 +1,71 @@
+---
+id: enable-source
+title: "Enable source"
+description: "Enable a source for syncing. Enabled sources will be included in scheduled syncs."
+sidebar_label: "Enable source"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVk1vGzcQ/SsETy1g7dppCgR7U1MXcNPWRpWgh8SHETnyMqbILcmVoy72v3eGS0WyLBdogR58kbiczzeceeQgNUYVTJeMd7KRlw6WFgWI6PugUKx8EHHrlHF3lZiEusiieDDWiiUK45TtNQmME1G1qPusRWaxkmeygwBrTBiibD4ORwEXU5yrH0nR8EYHqaW1IxP6MprWAf/sTUAtmxR6PJMcYw2yGWTadqwVU6AE5TjesnLsvIsYWf7q/Jz/Hoe8fkc+lXcJXWIpdJ01Clhaf46sMhyEOErXrDuqT0yQ+ih2sRhk8B2GZKa4k5xX+AXYgkz9PakdJ/x1xy8/o0q0w3uvT6X9q4mRjHYnkyv2H1HMb64EhkBn+yyCLH4MwLgNWKMFHwfGJJZeb/8FpIuneXxw0KfWB/MX6heG5runefzkw9JojU7MBOg1DYN3dvvCcL0+0fNTwzmfiA5697JO6vtTo3RF2QcHVkQMGwxTTi8IFm1GVH0waZsp9QeEgGFOs0Sft8yCCe6YbcvZRUlbRMGt18ywPqZMy6wu68Lm9WD0WGOmeMn+uTITY/fBkmKbUtfUtfUKbEsumjfnby5q6Ey9uZDj2aFafF7vdp/6gss5lecQwHF1f/7jvZjkIvl7dJWgQVtDasSnYieGLBg/yd0l0iJoDPtrZF5oJp/nvsiU1Dvc5iIbt/Icm1sAVG6BYrvAoFoQ14sFGT7GeGdS2y8r5de16mPy2sDMwjLWMdvMlA9YE23T+VKFjnDdBLMBtZ2tPNnSfYnclF0wka4XgqVaQX1ViRL+LbkS1FMbQ17Eqrd2lvBLEuDopqWudMmonR2o4GMUWzpYQXgctQ3515B213q+lqm9kVt1j3TeAR2JeFWdP0JKQB8eHirI0sqHu7qYxvqXq7eXvy0uZ2RStWltGWUyyR7ULSdOSMglN9SE/YJCkCp3IqV+kEJ5f0xpyqOSDfsB/V8eKqUruK51Z4E6aSx1GMq0fJTFJWk3+W1SBobamnudNYZhCRE/BDuOvE3DHXhKabmBYLJ2fgaZmJOUzQpsxH+A+s3v5f3zrTh8LZ3MdtfYjqmE+KXnL1reU5vn19R4S1plPDiNSTBXCrt0YPKE/sZDBrm5XrwnZSjzup8m9na2W7D7k/kcT+OUA/8yjZw0GYZpVqmmO/1J9KzFVwoo0BkCMeff3rrGdw==
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Enable source"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/sources/{id}/enable"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Enable a source for syncing. Enabled sources will be included in scheduled syncs.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Source ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Simple status response","properties":{"status":{"example":"ok","type":"string"}},"type":"object"}}}},"400":{"description":"Missing source ID","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"Source not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

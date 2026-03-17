@@ -1,0 +1,63 @@
+---
+id: test-ai-connection
+title: "Test AI connection"
+description: "Test connectivity to configured AI providers (admin only)"
+sidebar_label: "Test AI connection"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVU1vEzEQ/SvWnkBqsikfEsotVEUqIFopRRzaHibeadZ0115sb0pY7X/nzX6QpKUH4MQl8XrmjeeN34ybJOOgvamicTaZJ5ccotLOWtbRbEzcqujk+9asa8+ZWpypyruNydgH9Yyy0ljlbLF9nhwlnkPlbOCQzJvkxWwmf4fRzz/ADdEi2yhWqqrCaBJr+jWIS5MEnXNJj7FLU1YFqxAp1kGNZyEe8qnYR9Of29tlxd9JEIC6O7jFbSXrEL2x66Rtf+241VeQxY7svZodPz76s6U65s6bH5z9PYHFxZli751/OvnOfJi7sRsqTAbMt1ruZuWy7R+wefk4j3fOr0yWsVUTtbvA/4rX69/xgjQD+43RrGpLGzIFrQr+j3hhM7CuPboumV81yVsmz34B6eHzpr0BhtY490qoLjlGhAoJtkuGOjMEq1yIkiQJJEnD4JOSSSN3JqkQWreLX/sCXnmM1TxNC6epyIGfv5m9OU6pMunmOGmP9t3C0343u9yXUs++PvsMHpb3/ZdL1dsxYu7YThWEWVKcq+sBp5rO0F4nSNwIJmfC4MGXpVKKtxjasrvQXZWR1AfedlU29tbJ2aIB0p0GBuySvc5JnS+XAB5yXJuY16updmWq6xBdZmgCMQUUVDAT7TynJgRcMCr0gNeFNxvS28mtAxYTE8pjX3kTMLtAS+cKwpqq4fgThBonalC3dVFMIn+PimwG95JsNHrEkfYuBLV1tR9HNOJnFEkF7GkOU1CBvlm0umO6qAhXol5MZwdMQfT+/n5KnXXq/DodoCH9eHZy+ml5OgFkmseyEJbRxGKvbl3iYIKQIqie+zGOgKvIEKnvpdA9K1Dt+LJ0t3VQt2bXpv/0CA0SkCKmVUGQTTuQboa+uErGvoA7GcFIb0DBImuxN82KAn/2RdvKNhrZS0diuSFvuqkiDXk06lGa6Q6CQ6m15kr6DEOg7qX4YOC0+/16cb68lCSGBtnJV6IdjQsJP5rsdi/4Q/n3Ociv9O1vIU3TNweYjf696UnEr57rvaWgN5hVPwE4sNXf
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Test AI connection"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/settings/ai/test"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Test connectivity to configured AI providers (admin only)
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Simple status response","properties":{"status":{"example":"ok","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"503":{"description":"AI service unavailable","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

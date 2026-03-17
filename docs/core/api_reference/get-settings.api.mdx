@@ -1,0 +1,63 @@
+---
+id: get-settings
+title: "Get settings"
+description: "Get system settings (admin only)"
+sidebar_label: "Get settings"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVt9v2zYQ/lcIPXWYbTnZChR+S9O0y7osBZxuD60hnKSzzJYiNZJyogn+33dHSbHsOEP72Bdb4t199+u7o9ooR5dZWXlpdLSI3qEXrnEeS+HQe6kLJ15AXkotjFbNT9Eksugqox26aNFG5/M5/x2C3L4ntcxoj9qzFKpKyQxYGn9xrNJGLttgCfxUWVOh9bIDhNqbxNVFgc4nqCFVmPO5byok6NQYhaCj3YR8rqFWPnEINtskpckxACh1u44Wn9oIdV3SQ7RpUitzCsnjg6c/R461l1m0mgywzltKlWQPU7aaZqYsKfgQ0TLg3xD8bx3QInp9c/5S/Cy2mHljxYs+Ei7OXnnZe7mlspHJX50uF/FA7Y5i6lUCalDYPQYyKqzjXJ73vLeeHDhbPWJtwWooMeA8SepkTM/ms9qtJkdN7zTFmy4ixzmU8JAQW/g1oRYnFRQ46qUkghRoWfPbtIbGDS0f0eMwlrcIvrYo3iooXDQ5QR7X6Oz/6RU02LndgkpoAGrfMfQobVITl0avZVHbQPG9v1HoHqFM5NhVTzmS1VUOHvME/FP4G/RAUoiOqTqyS5undh8dWnH95qnZ7vHEpF+IJnTCZ7/Oz06AaJrGjbHyX8y/Z6IPUS4+XAu0lvg4bA7COhz6IA4PD1BWqqsdlV3mZPNPTatApCZvviObX06QwthU5jlqMRX7jfZD5fXy1La9Zo5qULSw7Za63jn9cdIKg53VVvomrO3XNNxoL4h59BoWjecpDkuru5F4p5VIzORdXCDv9ApYPYqHSyuseS6HC5i1VSTdeF8t4liZDNTGOL94NX91FkMl4+0ZDdRYzT2vt9rHu+QadjUZR31c0t//vhOdXHjzFfVMEBdL8AvxubcTbRDsPkcUuGSbDUKO3EZe2dyWfhKPVgwF9R6bUFmp14Z9c98hC33vbZdI2xLE7XJJhoc5FtJv6nRG912c1c6bXMJUQeqokGxDF6HFWDpHTe3u3HFeH6zcQtZM14ZsMRfITKysdCi6DS2ITDPRu78kKEFE2kpCEetaqSlfyAJ0LobNPthBZo1zojG1FZSPJq4QPi9C4egsQzejVIjTyPzcZ3pRAbVEnM/mB5lSovf39zMI0pmxRdybuviP68urP5dXUzKZbXypwrKWXo3qFgKnTAiSCdXlfkYuSLUielDooxDCF9SehQcVa/dD+S1fWn2PuUpxpUCGeylk1faE/xS50UwwV/msbVNw+NGq3Y6PaSItjxY90ieA5DsvTNZkIBlPyFfkT5CLLMOK54mmue74dbQ5duPZe3d1R7rQk35PSQabDA+MPoh0M8I+pnQXAv/yLJ40aduO8JTYoN+JnrV4nKNOm2u4op3zHwrtzB4=
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get settings"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/settings"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get system settings (admin only)
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"auto_suggest_enabled":{"type":"boolean"},"default_search_mode":{"allOf":[{"enum":["hybrid","text","semantic"],"type":"string","x-enum-comments":{"SearchModeHybrid":"BM25 + vector (default)","SearchModeSemanticOnly":"Vector only","SearchModeTextOnly":"BM25 only"},"x-enum-descriptions":["BM25 + vector (default)","BM25 only","Vector only"],"x-enum-varnames":["SearchModeHybrid","SearchModeTextOnly","SearchModeSemanticOnly"]}],"description":"Search Defaults"},"max_results_per_page":{"type":"integer"},"results_per_page":{"type":"integer"},"semantic_search_enabled":{"description":"Feature Flags","type":"boolean"},"sync_enabled":{"type":"boolean"},"sync_interval_minutes":{"description":"Sync Configuration","type":"integer"},"team_id":{"type":"string"},"updated_at":{"description":"Metadata","type":"string"},"updated_by":{"description":"User ID","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

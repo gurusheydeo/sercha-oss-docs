@@ -1,0 +1,63 @@
+---
+id: get-admin-statistics
+title: "Get admin statistics"
+description: "Get system-wide statistics including document counts, chunk counts, source counts, installation counts, and user counts. Useful for admin dashboards and monitoring."
+sidebar_label: "Get admin statistics"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVktvGzcQ/isEz9KunLZAoJsSuIGbogmgGD04PlDkWMuYS245XDnbhf57Z7irp5UCrU++2Fxy3vN9M+qlAdTRNskGL+fyAySBHSaop0/WgMCkksVkNQrrtWuN9Wthgm5r8Eno0PqEE6Gr1j/uvzC0UcP+03oy4pxiD/tL5Y1oEeJ4UYhbhIfWiYcQhTK19cIorFZBRYNZuA7ephDJfSEnMgI2wSOgnPfyzWzG/04T+fSRxHTwieLkV9U0zuocRPkNWaSXqCuo1XPd5eUCcGypgvP4yE8TQwMx2SGeXI18Or1PgeqQD10D5MZScGuIcrud7K7C6hvoJOliV+OX2jmu/kttDY29YAW8Wjkwl+xM/psLxsTLwrxww3c/z66eN/rWqzZVhKq/wfx/uCw+3wiIkdCxg+UzSOTnfPiu6sYNKWyUs4Z0/moBk1gF08l97JgY6v+SzU/P4/g1xJU1BryYjhgN3nWvKq9fLlH5hqKPXjlB2NjQyBicvp60mDmg22hTJ+d3vXwHKkJcEPLo8357TzpqTX7v5IK7JumiBoIl8UmuIXF0imVlmbta8khCyUa5HJhttpHoIauUmnlZuqCVqwKm+dvZ26tSNbbcXBG7jsXwx3L3h3iXXMOhJsdRn5f0tz+/iOFdpPAIvhCExVqlufg66ok+P2y/SskziYMAZYDb6FXNBVuMTMxNPFSWgvoIXa6s9Q8hz1fqu9K576PuEqKulPi0XJLiaY5rm6p2VehQl7rFFIxVU6dWWGLWmeoQobSI1NQ8dk/y+hztRulu+kDDGMEIYCQ20SLtBUpLV4LAVIjR/XsyJQhIG9obtC1a56YJvqe8vpCg6GmL7PSUjgFRdDRRaQV6T1gh+0YlNa5P5DVHmAbG5yHTRaOoJeJNMTvJlBJ9enoqVH4tQlyXoyqWv9+8v/5jeT0llaJKtcsj2SZ3VLccOGVCJhlQQ+5X5IJEG4IHhX4UAv9EGMbLYTfKs8r1B3K+lp8UI964Y2XjFGF0O1a4H/l3J7MZZl5mIPGEycMPfb9SCLfRbbd8TSMiMtfpuFHR8nLMVJ/sUM+UfSRYU0O1hoY5TuOlHQB/Nsq2x/Pgw/UXklUjCw8cYWOT3YGt7558d2T7nGNDCPyXh8NFlb4fGEiJ7eSHpx9q7Ik9SHMh72kI/gMTR6Jm
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get admin statistics"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/stats"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get system-wide statistics including document counts, chunk counts, source counts, installation counts, and user counts. Useful for admin dashboards and monitoring.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"System-wide statistics for the admin dashboard","properties":{"chunks":{"properties":{"total":{"type":"integer"}},"type":"object"},"documents":{"properties":{"total":{"type":"integer"}},"type":"object"},"installations":{"properties":{"total":{"type":"integer"}},"type":"object"},"sources":{"properties":{"enabled":{"type":"integer"},"total":{"type":"integer"}},"type":"object"},"users":{"properties":{"total":{"type":"integer"}},"type":"object"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

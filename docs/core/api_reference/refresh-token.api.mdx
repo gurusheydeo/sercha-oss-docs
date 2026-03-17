@@ -1,0 +1,71 @@
+---
+id: refresh-token
+title: "Refresh token"
+description: "Exchange a refresh token for a new JWT token"
+sidebar_label: "Refresh token"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVk1v40YM/SuDOXUB20oWPSx0ywYpkG63CeK0PWSNgJZoa3YljTozsuMK/u991MiJnTj70VtzSBTOkHyPeiTV6Zx95kwTjK11qi8esoLqJStSjheOfaGC/cK1WlgHW81r9etft9GmR9rx3y378N7mG512OrN14DrIIzVNaTKSsMlnL7E77bOCK5KnxtmGXTDs5b8h032MCkPYNAwwPjhTL/V2O9pZ7PwzZwEWmA6B3+yjHZAZx7lOg2t5Kwbf2NrHjG9PTuTPYYirD/D7jxT4oUE2f0/hCP7RNxmC4KsnrWf3MiFlwax4z2FubclUiwcQmvJoLJMfNZfkw31pl6Z+jUBNFR9nhqx9Aeq20umdprwyUv+Kqzlwj/TK8BoPs9Ez35F+GIvTOLNVhYr3rG4Q7ayPkOqPVBOEKPT9SHnbuozlgUOAv0cAuf0x5kn1lMllxUhJPpXbrI1B460/I4jdLWXrcqN+WrShdfxGaAxY9gThhc23Mbya9mim2WOmFTmpaZ/lifUBpwPos2NdcKQvYPv5mLgv6xWVJldDx6q5tOwPyP0w2tn1pWLnMBN2bYVYzzpCjmNrUNWISLQ5juE7ur1ndfo1Vofd/3+hJUZa9iI4a0MByANUUUrFobBoWN1YHwQIhQL/JYSbycAYZmhzBXkiRqdbh77XRQhNmiSlzags4Ju+O3l3mlBjktUpxL5/zb9+byahs9aZsJlKvSL/95A1OwH7snyyGeJ5fBET9Yt1FYVUfRr8VNcfbD9pAO+7vGDKe63HCdOXwTrzT6zCY80A6gNv+irKS7x52jsXu/fwYo/sz716YXcLCpNTHod8U0aXkrqaTpHssC5LE4p2PsF8SrLWB5sbGpc094nvfTC4HCfGeyDRL/bRtTMryjbjBUaC51zh1bJrnPGM6dFPBohtoob05wilILSVQRS1aMtyHPghKKpzXK9IdLHzo8xZ79UGw0iBTw0tIX5OgXYDagIq0DyLfp+YnjWE16jeTk4OmILoer2eUH86sW6ZDK4++e3y/OL36cUYLpMiVGW/p0wo9+rWAwcTGfQQYeR+ihS4KrIF9D0Iz5f0Qcn2Ph9+9DNkEImULGlKMv0W7Cl2Q9dgMYlkHzex9JdIXk66bk6e/3DlditmKMvha+YOjxjShubC926GiINWpdG+QIypPo+Ax7eSX66XbRTrs5EjPRc9zrKMm/DVu/udf301vcXl+fB9VdlcfBythQl+p9JHdrevumjrsM/rZYvFhfMYU37+Bfwrb3Y=
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Refresh token"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/auth/refresh"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Exchange a refresh token for a new JWT token
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"refresh_token":{"type":"string"}},"type":"object"}}},"description":"Refresh token","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"expires_at":{"type":"string"},"refresh_token":{"type":"string"},"token":{"type":"string"},"user":{"properties":{"active":{"type":"boolean"},"email":{"type":"string"},"id":{"type":"string"},"last_login_at":{"type":"string"},"name":{"type":"string"},"role":{"enum":["admin","member","viewer"],"type":"string","x-enum-comments":{"RoleAdmin":"Manage users, sources, settings","RoleMember":"Search, view documents","RoleViewer":"Search only (future)"},"x-enum-descriptions":["Manage users, sources, settings","Search, view documents","Search only (future)"],"x-enum-varnames":["RoleAdmin","RoleMember","RoleViewer"]}},"type":"object"}},"type":"object"}}}},"400":{"description":"Invalid request body","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Invalid refresh token","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

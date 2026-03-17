@@ -1,0 +1,63 @@
+---
+id: health-check
+title: "Health check"
+description: "Returns the health status of the API and its components"
+sidebar_label: "Health check"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVVFv0zAQ/iuWn9ekG0Ka+lamAQPEJjrEw7qHq3NtvLm28TkdJcp/3zkJXboyCYk3xFOSs7/Pd99959SyQFJB+6idlRP5BWMVLIlYoigRTCwFRYgVCbdsg9OrCwG2EDqSUG7tnUUbSR7JgMQfhCQntTwZj9Njn3tqzADS028ZqpyNHEoI8N5oBQmR31GC1ZJUiWtIbz44jyHq7pDB8QlZFDrBwFzt7drHrJEIVniYnPMdWPQ7xNIFUdk+yf1S49Yzg6QYtF3J5kh2Eh2SzmWPn0vBdHO5I5zLQ55mF3GLO1QxMe/zaVvojS4qGAjZ6yh/A34pLbfBANyMbn0iDtIscBWgwOLPsmxS7PX41eFBlxYT4doFHHZ+p8L/3v8DvU9BWPFRN/J9l87tEWsdS1fwxhVG5vHA4YnMd/kSBk4kgWpZBcNrZYx+kufGKTClozg5HZ8e5+B1vjnmgobb6OV9t4laVUHH7SxZp+v8G4SAYVqlJJ4L8uHbtejWRXT3aDPx1oU1xCRNH6/bhaZVRCcMl1Fg4C8L66RGYnZB/2y9+yQbJ/URt61s2i5d51sbQbV277EzDKoEcTmbMXC/xpWOZbXIuN25qii6QsPIwIJyajEjxXOVa6KKqzzwy1XQG1Db0dIxFgvBdsHggyYUxGWpMl3lmeiPP0sjyuPCDkMSy8qYUcQfsb3qiSfQRq1+4UAFRyS2rgpsRWvZCMxfQARBHFNIGZfCo4z8OxhUOvXALREn2XivUi704eEhg3Y1c2GV91DKP12cnX+enY8YkpVxbVKVUUcz0K1NnCthymSorvZjPoK3erYHpz5IoTOo4IPUvXymWP10F/3Fb7BvfRIv9wbYLk1fbN1PwU0/cWlMkoFTpK4XQPg1mKZJ4e8Vhi3H+XUDQcMiVXxzy0y989LY3LO1WFSl0KcR24CpOtM9u0Wb4Ti+O79mPz4CHU3HqQ==
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Health check"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/health"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the health status of the API and its components
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"All components healthy","content":{"application/json":{"schema":{"properties":{"components":{"additionalProperties":{"properties":{"message":{"description":"optional message for unhealthy components","type":"string"},"status":{"description":"\"healthy\" or \"unhealthy\"","type":"string"}},"type":"object"},"description":"individual component health","type":"object"},"status":{"description":"overall status: \"healthy\" or \"degraded\"","type":"string"}},"type":"object"}}}},"503":{"description":"One or more components unhealthy","content":{"application/json":{"schema":{"properties":{"components":{"additionalProperties":{"properties":{"message":{"description":"optional message for unhealthy components","type":"string"},"status":{"description":"\"healthy\" or \"unhealthy\"","type":"string"}},"type":"object"},"description":"individual component health","type":"object"},"status":{"description":"overall status: \"healthy\" or \"degraded\"","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

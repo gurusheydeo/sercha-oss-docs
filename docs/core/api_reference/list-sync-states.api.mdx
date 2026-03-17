@@ -1,0 +1,63 @@
+---
+id: list-sync-states
+title: "List sync states"
+description: "Get sync states for all sources. Returns the sync status, last sync time, and statistics for each source."
+sidebar_label: "List sync states"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVt9v2zgM/lcEPydxutuAIW+9ohu6DduwbLiHrggYmY21ypJPktP6jPzvR0pOnF/d7umAvbSOSX4iqe8j3WUFeulUHZQ12Sx7i0H41kjhAwT04t46AVoLbxsn0U/EFwyNM16EEgfHxo+EBt+HBlXhSIApok35oGQCQpBljzTJRplDX1vj0WezLnsxnfK/w2w+vSc3aU1AE9gKda2VBLbmPzy7dJmXJVbATypgFbFqZ2t0QSVkaataY8BiAREktDUStg9OmVW2oQMa5607Pf0zrJSJh4nkEotQRjqsKCHQsVzK8AQRnUuAJxbu0oLDnkvG4NPPHVL/Fqo4bw3gflIqX8i5FpWNefALZQp8wn1gRa1foePQwsqGy/YLKIpfOxUYe/4rt6Yu4Fm32EZ/zrbZNd0uf6AM29qa6I2mqbLZbaYKjcyzxhiufzRQgZ7vQWl6uDu+vlH2NGaA8RqcgYobdJvN6ULmEf8mYQ4vvuzQh3dXe+cMb9/0J57Nvn8BzkFL9bHPy+nFKSm/GWhCaZ36J6L/Z3Ecolx+vhGxu2IrQsI65MSOw/gEXE1s/xq0Kijm7wZJ7UtbtKf0P62ur+aP0zzeWLdURCcjxgKKShlhjW5/q7penRtcN5Q9sYcmBLo1upTTb1QWywlp6KnQEv277E8Eh+6SmEc/7zYsGlglZaTFwDqqkIhJUs5WGDg/YO8s71dHzkNtnNZKxvDcGB/RG6fJsQyhnuW5thJ0aX2YvZ6+vsihVvn6ghSy7+af97sbMp9zN1N39vM/bu67v76KZBfBPqCZCGJlBWEmvvdxoouGzfeMElccUyIUyBfKE4IvqNdkvM6hx5TUe2xjj5W5t2kb0eaQkQF97BydLEF8ms8p8LDGlQpls5zQ2Mpl44MtFIw1LKmXMWYsrcNceU/XG8fq4fpyag2yHd/TsPVYCGRO1k55WtxUFq1iotVE9MdfEZQgSq1VwWu/0XocaBWlNU6kNLTFt3EgnfVetHSxguoxxBrCp0EOu+8EKoXYjczUodLLmj4AULyYTA8qpUIfHx8nEK0T61Z5H+rzDzdX1x/n12MKmZSh0nFSqqD3+hYTp0oIkgmVar+gI8i1JnpQ6nspfFD+4AMnO+paN0j0f/0W6gnDLc9rDUSyTd+irhfSbb/5o3j2pESEZxWwQ9ctweM3pzcbfk2qdyxfeqRdpmDJbSP1jrb0Ze09ED/pZqTEmkVLE6NJzD2aTpt9gb+9/kq+0MtpIDuDjbYPjL41mXYP+1gsKQX+yyo/G9J1SUpU2NY/mZ6N2Ck0eXNDafFu/gUBwc6Y
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List sync states"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/sources/sync-states"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get sync states for all sources. Returns the sync status, last sync time, and statistics for each source.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"items":{"properties":{"completed_at":{"type":"string"},"cursor":{"description":"Pagination cursor for incremental sync","type":"string"},"error":{"type":"string"},"last_sync_at":{"type":"string"},"next_sync_at":{"type":"string"},"source_id":{"type":"string"},"started_at":{"type":"string"},"stats":{"properties":{"chunks_indexed":{"type":"integer"},"documents_added":{"type":"integer"},"documents_deleted":{"type":"integer"},"documents_updated":{"type":"integer"},"errors":{"type":"integer"}},"type":"object"},"status":{"enum":["idle","running","completed","failed"],"type":"string","x-enum-varnames":["SyncStatusIdle","SyncStatusRunning","SyncStatusCompleted","SyncStatusFailed"]}},"type":"object"},"type":"array"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

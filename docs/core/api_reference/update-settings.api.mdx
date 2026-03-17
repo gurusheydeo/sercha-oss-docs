@@ -1,0 +1,71 @@
+---
+id: update-settings
+title: "Update settings"
+description: "Update system settings (admin only)"
+sidebar_label: "Update settings"
+hide_title: true
+hide_table_of_contents: true
+api: eJztV9tu4zYQ/RVCT1vUtpy0Cyz8lmSzaLpNE9RJ+7BrGJQ0trlLkSpJOVEF/3tnSCmWfAlStEURoC+xIs6d58yM6igDmxpROKFVNInui4w7YLayDnJmwTmhlpa94VkuFNNKVt9Eg8jA7yVYd66zKprUUaqVA+XokReFFCkna/EXSybryKYryDk9FUYXYJwA62VLp+e2XC7R1BwUTyRk9N5VBWAoidYSuIo2A4xxwUvp5ha4SVfzXGdAgqDKPJp8ilZVYkSGcTl4dPhj0Z1yIo1mg9aYdQYTwbPHIWkNU53nGLKPY+qtXqPRH4KhSXR+ffqWfcvWkDpt2JvGP6W+FZ42Xm6wKKjya5ClEvXE7jCmRsRb9QKbp0A65beUy3HPW+1Bz9nsydaaG8Vz8Hb2kjoY09F8Zhu6ZYuu7RyvbF7wJXTuRuCFL8FQHm2x28t59iJtpdIXSJB5s+ZyjqArXUDLrufN093q5AuWA994pHTRPG3x6zQrPbIb8ApD/p0pIeRZYPWDm9PxmH76dm4+ot5/hXIu5c0Cr/R/vP+reJ/tg4ck2fsQkaUccv44fxkr/jZ3+rF8AO5KA+yD5EsbDf5ZZu2kjWLsQquFWJbGQ3zrrxO6A57PRddVAzk8C1TL5tztm78Gx/GUR7tQ7egl1b7evQXDrt7vqx3qA/ju+0M8vlKYushYM7/+Cqn7hs5urxgYg5Bsmwfa6vPeH/uHR54XMpSv554lND9fntDJgaoobC8rbcQfkL2ybL47gHJtEpFloNiQbReOV5XX28OwQ9IpLnGfMmuEcXD6etLynSotjXCVn0Pn2K3AnCHy8F/fOR21Jd+Fw8ClJp0DIpOGS1ES0wpO4lHc7pR+blE5rLdZGomnK+eKSRxLnXK50tZN3o3fncS8EPH6BDtEV8wel5tt451SDUNNulHvlvTH3+5YOMdV4SuoEUMs5txN2OdGj9X+YPM5wsAF6ayAZ0DXSDOIrqVh4k7PxKA+QuUrSxf7y3Z1vmzv5tiSQPvJkbVguwPsT5rxM4MlmOwPi867/fEw3lC6C93u+Tz1eG1yngJa5+xmOsVI+nezFG5VJiNcPOK0tE5ngg8lTywCgHRwIzEQC2uxGtHe4nZrxJqn1XChURcyBhRXYYTFT5MwlpEEI9a4v0BTDAmwFmiFLUoph7QZMa4y1lai1eOp0daySpeGYT4KMY72aSIxi+9SsCNMBbkIxKttpmcFRyix09G4lykm+vDwMOL+dKTNMm5UbfzT1cXlz9PLIaqMVi6XfmoKJzt184FjJmiSiBByP0EXKFogrDH0Tgjtt9mWQL2idb7DXvgZ1yCUahUXkgu/Jvjc6oaunyLbYTQxjd7VdcIt3Bu52dBrBLShxoCPuJEJQpXvC4OWIsTvr0Ab4UWIcHhHnklcloEjO92PqB40ztIUCvesbLfX3N7foWzSfJg2XDH8gYiCfyfEXt1un3V4V0eSq2XpuRMFk8RW3nSKLY8pokH7QEm1R6rqBLjbB0Ie9JeyOqhS16FLYD1b+XB0VOOp+QRpuroZRv0nD86DTw==
+sidebar_class_name: "put api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update settings"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/settings"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Update system settings (admin only)
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"auto_suggest_enabled":{"type":"boolean"},"default_search_mode":{"enum":["hybrid","text","semantic"],"type":"string","x-enum-comments":{"SearchModeHybrid":"BM25 + vector (default)","SearchModeSemanticOnly":"Vector only","SearchModeTextOnly":"BM25 only"},"x-enum-descriptions":["BM25 + vector (default)","BM25 only","Vector only"],"x-enum-varnames":["SearchModeHybrid","SearchModeTextOnly","SearchModeSemanticOnly"]},"results_per_page":{"type":"integer"},"semantic_search_enabled":{"type":"boolean"},"sync_enabled":{"type":"boolean"},"sync_interval_minutes":{"type":"integer"}},"type":"object"}}},"description":"Settings to update","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"auto_suggest_enabled":{"type":"boolean"},"default_search_mode":{"allOf":[{"enum":["hybrid","text","semantic"],"type":"string","x-enum-comments":{"SearchModeHybrid":"BM25 + vector (default)","SearchModeSemanticOnly":"Vector only","SearchModeTextOnly":"BM25 only"},"x-enum-descriptions":["BM25 + vector (default)","BM25 only","Vector only"],"x-enum-varnames":["SearchModeHybrid","SearchModeTextOnly","SearchModeSemanticOnly"]}],"description":"Search Defaults"},"max_results_per_page":{"type":"integer"},"results_per_page":{"type":"integer"},"semantic_search_enabled":{"description":"Feature Flags","type":"boolean"},"sync_enabled":{"type":"boolean"},"sync_interval_minutes":{"description":"Sync Configuration","type":"integer"},"team_id":{"type":"string"},"updated_at":{"description":"Metadata","type":"string"},"updated_by":{"description":"User ID","type":"string"}},"type":"object"}}}},"400":{"description":"Invalid request","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
