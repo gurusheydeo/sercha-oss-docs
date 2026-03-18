@@ -1,0 +1,71 @@
+---
+id: trigger-sync
+title: "Trigger sync"
+description: "Trigger a sync operation for a specific source (admin only)"
+sidebar_label: "Trigger sync"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVUuPEzEM/ivRnEDadtqFA+qtvKTluaK74gAr5GbcTmCaDE6mSxnNf8fOpPSxu0jAAXFpM/Ej/uzPdpsV6DWZOhhns0l2QWa5RFKg/MZq5WokEJFauHhZozYLo5V3DWlU96BYGaucrTb3s5OsBoIVBiSfTT60R65nvcnZU1Y0clFDKPls2YS/TMFnwq+NISyySaAGTzKvS1xBNmmzsKlFywcydpl13ZUo+9pZj17kp6NT+Tt8cqo11gHFs3Y2oA2iA3VdGR1h5Z+9KLZ7Dx0FLVmA5EZtXxSoJLkJpn+9T8cnxsAf+A1WdRWjJf0J5np8+oAtjhAwuACh8YcWsIv4GPHPGzf/jDrwjdw9HI1uRv3aeM9G2yrFlP9hAqbnZwqJuPp3go/iQxjGrqEykrCvDfqg5q7Y/Aak8c04Li00oXRkvv9NOf8Jmgc343juaG6KAq0aqF0L/Ue4hL6oGzJhE1v9MQIhTblE/Hkl3RlgKVMgtb3P+IpHQ+kK6XznQxwXop7lPU193pqiy2XuZOKd1ts50lDFamUI9STPK6ehKtnB5NHo0TiH2uTrMbfTvpq/W+9qF/hMktknZz/849y+eH+herkK7gvaoeLqrSBM1Mdkp9oo6D5m29FWIhRIu+E2TdyN1dylmIN6iZuYYmMXTt4WAoCOBEi2MyRdgno7m7HhIcalCWUzH2q3ynXjgysMDCqY+9xHm4F2hDnPAq6uDJxDXOdk1qA3g4VjWx5uTDukmoxH5RmWLhWzaqjS80/YlWJGrQ17UYumqgYBvwUFtmD1FdggW6G3A03Oe7XhsirGY5k07L+AAGki+SFDYXKjEHWHdFoDl0SdDkcHSBno9fX1EKJ06GiZJ1Ofvzp78uzN7NmATYZlWFWCMphQ7eUtBs5I2KUQqsc+5idYVXjIoe+FsN1/iYUHGWt33fmXezKVXxKY1xUwZboEuE1N8SGtFM/ak7gaY0TMXqG0yNt2Dh4vqeo6ueYOJmlFPq6BDMwlB7KDjZczd90CKo+/gHTvXVq+99X+qr411i1/rcwLHiKNfPHxC7M5rvLuirVSF0gYvaDfx3smN2Zctz8mzt/OLlgZUlvumka8nWwP4v7WeI6bro9BfmVa3GrStn1Lck63+r3oToufnZ6gCwQejz8ABmU1Yg==
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Trigger sync"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/sources/{id}/sync"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Trigger a sync operation for a specific source (admin only)
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Source ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"202":{"description":"Accepted","content":{"application/json":{"schema":{"description":"Sync accepted response","properties":{"source_id":{"example":"src_abc123","type":"string"},"status":{"example":"accepted","type":"string"}},"type":"object"}}}},"400":{"description":"Missing source ID","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

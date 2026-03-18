@@ -273,3 +273,60 @@ code {
 .terminal-dot-green {
   color: var(--sercha-terminal-green);
 }
+
+/* ===========================
+   OpenAPI Method Badges
+   =========================== */
+
+/* Sidebar method badges - target the menu list item with api-method class */
+.api-method .menu__link::before {
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-right: 8px;
+  display: inline-block;
+  min-width: 36px;
+  text-align: center;
+}
+
+/* GET - Green */
+.get.api-method .menu__link::before {
+  content: 'GET';
+  background-color: #10b981;
+  color: white;
+}
+
+/* POST - Blue */
+.post.api-method .menu__link::before {
+  content: 'POST';
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* PUT - Orange */
+.put.api-method .menu__link::before {
+  content: 'PUT';
+  background-color: #f59e0b;
+  color: white;
+}
+
+/* DELETE - Red */
+.delete.api-method .menu__link::before {
+  content: 'DEL';
+  background-color: #ef4444;
+  color: white;
+}
+
+/* PATCH - Purple */
+.patch.api-method .menu__link::before {
+  content: 'PATCH';
+  background-color: #8b5cf6;
+  color: white;
+}
+
+/* Hide the default method text that shows before the label */
+.api-method .menu__link {
+  text-transform: capitalize;
+}

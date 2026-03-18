@@ -1,0 +1,71 @@
+---
+id: user-login
+title: "User login"
+description: "Authenticate with email and password to receive a JWT token"
+sidebar_label: "User login"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVt1v2zYQ/1cIPm2AbSXFBhR6S4MMyNouQZ1uD60RnKmLxZYSNZKy4wn+33dHyrGcyPt8ah4c6sj7+B1/d8dOFuiV003Qtpa5vGhDiXXQCgKKjQ6lwAq0EVAXogHvN9YVIljhUKFeowDx8293JPiKtZxIh7+36MMbW2xl3kll60DGeAlNY9goecm+eHbVSa9KMs6rxtkGXdDo+St65EXYNkgx+eB0vZK7idxHMLJJu73ELr+gCiQh0TG4d3ala6EcFgwRjO9D1iSReXAt7ljgG1v7FMqrszP+d2zm5i3p/Vdsjw158/cQRgE6fKDd8j4ldOzE6Z3Wo3vpEFSgexooLK01CDVrnE60HkvxRBrw4d5wFk8BqKHCcWTkNSagbiuZf5JQVJopU2G1pLgncq1xQ4vF5JnuRD5OWWmqbFVRxiOqD2TtIlrI5XuoYYWC4fuJ8LZ1CnmBIZA+3zGffp/85HKO4FQ5EexPFFa1yWg69WsKYn9K2NpsxXcPbWgdfs8w+lgGhPCM5u9jOOl21NPiydMaHOc0ejmgPsJ0FPpirBJGaoNkP4yR+7peg9GF6EtZLLmW/wXdn7WT22uBzlkn9mVFtp5VBG+n0oCqYZJIPR7DP6j4iOr8NKpB7QsKCpSybR1EoT0sDTWBbwnoj+PXF5AIY4h6bo0uxfQNwWIhrCLbB6OIg1lwrwilpc4kG+sDBwKhpK8M6GQW2xIJE3C20MnWUXuTZQhNntEBBaYkzfz12evzDBqdrc+ppofH/OlzCzatWqfDds7ZSujfUPWi41BfJo8nY9pPA3ImfrKugpCLz72e6OLG7rOkwGMzKxGKWNKpkcYkWKf/SDl4yhgF9Ra3MYd8hR8Oc/dqfwtPc/TQSA/jc9jq6we7H9Y0LHjZ+54jNSYQN/M56R7naEUvg3Y5o5acqdYHW2iYGlj6zEcd6tUOM+09RSVfjOFbp9egttMH6oIeC4HM2cZpj8Ta2AyJdjPRu78kU4Iot9ZkRTy0xkwDPob4IvEEkRmy1wPlrPdiS/1XEJ6aWEX2Cwiw78kzgkLsR2byAelFA3Sl4tXs7AgpAd1sNjOIuzPrVlmv6rN315dXv8yvpqQyK0Nl4mjWwQzyFgMnJDzbiJAJ+zm54IcM0YtCH4TwkTIn9hw+ytfgHfU/n2c9eTh9WWNAx0dAhNv1tURzmalMOYqREOe5EFjedUvw+NGZ3Y7FxDdHb7xPtKQJpbl78hfZ6xnM5feVKJrLyxT99I6983HTJgo/a0NciUnjQilswl+eHXaD25v5HR1e9q/Oyhas42DDzzv6zbm67H5Yd0nW0WOmXrU0tWk/2eS/PwEl0NdP
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"User login"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/auth/login"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Authenticate with email and password to receive a JWT token
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"email":{"type":"string"},"password":{"type":"string"}},"type":"object"}}},"description":"Login credentials","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"expires_at":{"type":"string"},"refresh_token":{"type":"string"},"token":{"type":"string"},"user":{"properties":{"active":{"type":"boolean"},"email":{"type":"string"},"id":{"type":"string"},"last_login_at":{"type":"string"},"name":{"type":"string"},"role":{"enum":["admin","member","viewer"],"type":"string","x-enum-comments":{"RoleAdmin":"Manage users, sources, settings","RoleMember":"Search, view documents","RoleViewer":"Search only (future)"},"x-enum-descriptions":["Manage users, sources, settings","Search, view documents","Search only (future)"],"x-enum-varnames":["RoleAdmin","RoleMember","RoleViewer"]}},"type":"object"}},"type":"object"}}}},"400":{"description":"Invalid request body","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Invalid credentials or account disabled","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

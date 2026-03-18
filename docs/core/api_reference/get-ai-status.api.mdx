@@ -1,0 +1,63 @@
+---
+id: get-ai-status
+title: "Get AI status"
+description: "Get the current status of AI services including embedding, LLM, and Vespa connection status"
+sidebar_label: "Get AI status"
+hide_title: true
+hide_table_of_contents: true
+api: eJztVt1v2zYQ/1cIPq2YbTnBAhR+c4Os85o0AZxmD6lh0NLZYkuJGkkpcQX/77ujKFv+KrqHYRiwl1jhfd/97qPmCdjYyMJJnfMRfw+OuRRYXBoDuWPWCVdappdsPGEWTCVjsEzmsSoTma8YZAtI6KvHbm/vekzkCXsCWwgW6zyHmNQGJbzHDVJ0bsHyUc0vh0P62bd//wHZUNShcaKKolAyFkSNvlhiqbmNU8gEfRVGF2CcbBTCckkGK5hbECZO55lOwBPyMuOjZ56uF0YmaMDBq8Mfi2pyJ2M+w6d1gbzcOoPBIO21T1L9WGcZuuL1T73WO1T6W6NoxN/dXV6xn1mFdrVhPyWwFKVyb1B+xzwNVu5ztUaRp4ZX039dtkf0KbB4rZ5hs3WkkyZLsZy3vJPu7RmbbXVVwuQiA6/nKKiTPp2NZ4YebjFwXBJRCanEQvkyhBQvtFYgct6VnCcyOwEGtMCW6P+Wr4Ug3xZMIlRWYEgblVt1DIVaIgWdqmSCXB0woJu5kKgIg0nRaYRBj2ulBEKLIJiCITOVXosVfAch3WSOJw/B0j1qH0+Qa/c07tjpMLYWd0/Xre3d01PwYrPZ+qEXX7C4FJ1S2f+Z/1cyX9GkO859LPJ5WayMSM5kP8xGSH6wOMcZ37LYOSYTy3xGVQpCuXR9mtgM0qMxifEvsssr/AkD88dK4Md+PPU6aU581Dn4EbT/TOPpxHOYPqfyfOKF3n4ZXhwD91MuSpdqI79B8nc2yb6W8cOEgTGI/3Zj8d7hsiGy/3gVWaGa8lRCyQRl/izBOrbQyZofpu5cNFentuEEvccEK998YBqf/kNhEcYATwnpEIHPNX+HSwTbESuE/842hCuxCv3LpuAcAZrglgEWkRbsCmhRF4IkeGQDSyRktD0qmtxYb6A0OIZ46lwxiiKlY6FSbd3o7fDtRSQKGVUXiPsumz3PN9s572HaJKgbwmF+f//jkTV05vRXyAfsV20y4Ubsc5BjtSdsPlOTSZLBBqXx2OPUR1SjAF9f0V2a0akPsPZplvlS+ymDIBCxB0GQnQKuaMHup1MU3I9xJV1aLgZ4zkRxaZ1OpOjjerCYUpLBO8dAJK3FCtNk2I/rwchKxOv+UqMsJAwIloWRFlhzaTFE1oAF89eoioW5b9myVKpP95Y/DduLq5UTsdHWsrUuDdsORZYIJ5jFN7w1BxgKAhwIrLtIxzg78Eq9HAz3IsVAX15eBsJTB9qsoiBqo9vJ9c3H6U0fRQapyxRF6aRTnbx5xzES2j0IqCb2CzRBewzhga53XKBLmW7iFoZ7Kat3LfoPn9QBH5ThqFBC+sHuM1KHtnnmbdvQyqW9G4QR4IR64qjrhbDwyajNhp6x0Q11LH7ihJfNGfE8a/aJ3+bYa1+BbtVxHENBPYpDomyQejCQNt1+fn/zSF6E9tmBm5T12g/S3pLydUf3YXM0LtBf6uqTInXdtA4G1vI3pLMS245suCmjuJU2fwHoeIpX
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get AI status"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/settings/ai/status"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get the current status of AI services including embedding, LLM, and Vespa connection status
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"effective_search_mode":{"enum":["hybrid","text","semantic"],"type":"string","x-enum-comments":{"SearchModeHybrid":"BM25 + vector (default)","SearchModeSemanticOnly":"Vector only","SearchModeTextOnly":"BM25 only"},"x-enum-descriptions":["BM25 + vector (default)","BM25 only","Vector only"],"x-enum-varnames":["SearchModeHybrid","SearchModeTextOnly","SearchModeSemanticOnly"]},"embedding":{"properties":{"available":{"type":"boolean"},"embedding_dim":{"description":"Only for embedding service","type":"integer"},"model":{"type":"string"},"provider":{"enum":["openai","anthropic","ollama","cohere","voyage"],"type":"string","x-enum-varnames":["AIProviderOpenAI","AIProviderAnthropic","AIProviderOllama","AIProviderCohere","AIProviderVoyage"]}},"type":"object"},"llm":{"properties":{"available":{"type":"boolean"},"embedding_dim":{"description":"Only for embedding service","type":"integer"},"model":{"type":"string"},"provider":{"enum":["openai","anthropic","ollama","cohere","voyage"],"type":"string","x-enum-varnames":["AIProviderOpenAI","AIProviderAnthropic","AIProviderOllama","AIProviderCohere","AIProviderVoyage"]}},"type":"object"},"vespa":{"properties":{"can_upgrade":{"type":"boolean"},"connected":{"type":"boolean"},"embedding_dim":{"type":"integer"},"embeddings_enabled":{"type":"boolean"},"healthy":{"type":"boolean"},"schema_mode":{"enum":["","bm25","hybrid"],"type":"string","x-enum-varnames":["VespacSchemaModeNone","VespacSchemaModeBM25","VespacSchemaModeHybrid"]}},"type":"object"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

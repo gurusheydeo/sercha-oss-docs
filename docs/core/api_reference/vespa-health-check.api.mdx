@@ -1,0 +1,63 @@
+---
+id: vespa-health-check
+title: "Vespa health check"
+description: "Check if the Vespa cluster is healthy (admin only)"
+sidebar_label: "Vespa health check"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVU1v2zAM/SuCThuQ2Em3AUNuWdENXYe1QNrt0ObAyEys1pY8SU7rGf7vI22n+Wh7WG+9JLbIR/FR78m1TNArp4ugrZETeZyiuhN6KUKK4hf6AoTKSh/QCe1FipCFtBLvIMm1EdZk1Xs5kI7yrPHo5aSWR6MR/+2XPT+jNGVNQBM4CkWRaQUcjW89p9TSqxRzeIqd6bzIUPgAofRisxfVK5wt0AXd7dvF+QkfgBEEtXeUFqqCn31w2qxk0zyu2MUtqkArvPZxNH669ZWBMqTW6b+YvJ7A9OJUoHPWvdx8G97vXZs1ZDohzJ8SfRALm1T/webD0z6+WrfQSYJGDMX2AN8Ur0/P8epkWppenW+IEC16VKXToZKT61p+QXDopqQ5ep03c8LAiva97jhKWsiRBJlQmRUG7g44V8btecZrzoq7OUiu7dbofFu6dBnlpSEUkzjOrIIstT5MPo8+j2ModLwey2awm+Zfzptv257xKLvR7DZ/ONnvvy9FFxfB3qGJBIkxhzARNz1O1G2guZHUuGYM0UjQ0ZuBnOc27a3YnuV2wNTUGVbtgLVZWt6bjx9Ue/w9doZOpSDOZzMC7nNc6ZCWi0jZPFZ00dlEwzCDhY99ixkq6zDW3tPZ0oQOeF04vQZVDZeWsJgIEh26wmlP9xXRUqkgTUWi3/6YSgnS01pTFbEss2wY8CEIMAml52CCVhscKGe9F5UtnSA+hiRD9RMIIDytKfQRUSFpI8t0y3RaAB2JOIpGe0yJ6P39fQRtNLJuFfdQH/84PT75OTsZEiRKQ54xy6BDtjO3tnFiQiVZUB33MW1BqQXJg1rfaaHzY6dCofiDIg/mVm8d+rovTn/2PL24yID00vRs694S17JFtB2zdQaytwWJlxXNGXW9AI9XLmsaXib7OvYhPa7BaVjwCMiGg40U2Ud3pDWaslJYsP/I+mWnwoNrptn16reTS8qF3hpb4XKxweaBq29CptqpfSj8rgX+Zcc+C6nrzhZEbJPfhV5EPLqty+aJzumC+gd8F8tc
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Vespa health check"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/admin/vespa/health"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Check if the Vespa cluster is healthy (admin only)
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Simple status response","properties":{"status":{"example":"ok","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"503":{"description":"Vespa unhealthy","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

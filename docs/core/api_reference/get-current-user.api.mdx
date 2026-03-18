@@ -1,0 +1,63 @@
+---
+id: get-current-user
+title: "Get current user"
+description: "Get the currently authenticated user's profile"
+sidebar_label: "Get current user"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVU2P2zYQ/SsEL20B2/IGOQS+OcE2SNM0QZ00h8QIxtLYZiKRKkl51xH03/uGktcf9aLIsReb0nxw3sx7o1YXHHJv6mic1TP9kqOKW1Z54z3bWO4VNXi20eQUuVBNYP9TULV3a1OyHmnPoXY2cNCzVj+ZTuXvPOXb13DLnY3IIlaq61KywZp9DeLS6pBvuSI5IXPNPpo+IeXR7FhOcV/jX6+cK5ms7kYaAaY8MYXojd2IxRRXX5cU4pfSbYz9QvGqh6WKrxo8bhUD26bSs0+aispYwKq4WrHHYWf4Dofl6CJ2pO/HEjTOXVWhAQnVn8g2Txlm+g1Z2nDqaxip4Bqfsxw4RsQHJBDvN/09M71g8vl2pOQ+Vbi86ZP2Xn/1RRy8lLOY38/rJjaefxEYQy0n8wmC5r9rePTaqzctH27akZeepluOqM8wnZW+7LqHDrrVV86j7jp593R6829mfbBCTufNdy5+hGPnWebvXin23nl14DJyndMwmdPhnqpaqKCN3VFpCsT83XCIauWKvb6c/uNonl5Bg/Yr66Jau8b+n/DgZWAsDBP3mHOrn4MT7OcYDR6XnWiCNokCAjEIPSrG3KBSveEo1ZH46qySUuGzEzdJ1XgoXG9jrGdZVrqcyq0LcfZs+uwmo9pkuxvQ+tQtPO63PJa5kNb1rTgt9rKTv318r3q7iu4b24n61fmK4kx9HuJUmwzdZ43Ck563TEVidb9L9HxgaJrdsaEo6jXvU0ONXTu5W8aNfSfHIXbB0Bapt4sFAs8xbkzcNqsJtkqWNyG6wtC4pFXIQorBuvGcmRAwSxH+Oa533uwo34/XEHLAUgfJ2NfeBIbmk57BoYkarn+BVLLwdwZZ1Lopy3Hk+6jIFnCvSL4NhzjKvQtB7bFCFPBYUAT5C4p0WCsTQAGVWWh5RDqvCSNRTybTM6QAend3N6FknTi/yYbQkP3+6sXtH4vbMUIm21iVgjKaWJ70LRUOJLKeQage+w2ugGsNeqD0kxLkyzd89dIm1Bdda496/PGv5DB16VtWl2TSByzhbAfyf4ImRBnCW3lq2xUF/uDLrpPXEKUXdeGInWpoJUAhrtGBcKKWb2AUepnnXIuqIOim59rF8uhOFfjy9j18aRDAkZ6SbHQ4SPaDye5Pcl/Suy9BfkWXV0Patic/gB38e9OjEQ+a6r2le/hQdP8AJ1wA/Q==
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get current user"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/me"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get the currently authenticated user's profile
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"active":{"type":"boolean"},"email":{"type":"string"},"id":{"type":"string"},"last_login_at":{"type":"string"},"name":{"type":"string"},"role":{"enum":["admin","member","viewer"],"type":"string","x-enum-comments":{"RoleAdmin":"Manage users, sources, settings","RoleMember":"Search, view documents","RoleViewer":"Search only (future)"},"x-enum-descriptions":["Manage users, sources, settings","Search, view documents","Search only (future)"],"x-enum-varnames":["RoleAdmin","RoleMember","RoleViewer"]}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"User not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
