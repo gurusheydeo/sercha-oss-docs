@@ -40,19 +40,20 @@ const config: Config = {
   themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
   plugins: [
-    // CLI docs (versioned)
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'cli',
-        path: 'docs/cli',
-        routeBasePath: 'cli',
-        sidebarPath: require.resolve('./sidebars-cli.js'),
-        includeCurrentVersion: true,
-        showLastUpdateAuthor: true,
-        showLastUpdateTime: true,
-      },
-    ],
+    // CLI docs (temporarily disabled)
+    // To re-enable: uncomment this plugin
+    // [
+    //   '@docusaurus/plugin-content-docs',
+    //   {
+    //     id: 'cli',
+    //     path: 'docs/cli',
+    //     routeBasePath: 'cli',
+    //     sidebarPath: require.resolve('./sidebars-cli.js'),
+    //     includeCurrentVersion: true,
+    //     showLastUpdateAuthor: true,
+    //     showLastUpdateTime: true,
+    //   },
+    // ],
     // Core docs (not versioned)
     [
       '@docusaurus/plugin-content-docs',
@@ -126,13 +127,6 @@ const config: Config = {
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'cliSidebar',
-          docsPluginId: 'cli',
-          position: 'left',
-          label: 'CLI',
-        },
-        {
-          type: 'docSidebar',
           sidebarId: 'coreSidebar',
           docsPluginId: 'core',
           position: 'left',
@@ -140,7 +134,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/custodia-labs/sercha-cli',
+          href: 'https://github.com/custodia-labs/sercha-core',
           label: 'GitHub',
           position: 'right',
         },
@@ -153,12 +147,16 @@ const config: Config = {
           title: 'Documentation',
           items: [
             {
-              label: 'CLI',
-              to: '/cli/overview',
+              label: 'Getting Started',
+              to: '/core/quickstart',
             },
             {
-              label: 'Core',
-              to: '/core/intro',
+              label: 'Architecture',
+              to: '/core/architecture/overview',
+            },
+            {
+              label: 'API Reference',
+              to: '/core/api_reference',
             },
           ],
         },
@@ -166,16 +164,12 @@ const config: Config = {
           title: 'Resources',
           items: [
             {
-              label: 'GitHub - CLI',
-              href: 'https://github.com/custodia-labs/sercha-cli',
-            },
-            {
-              label: 'GitHub - Core',
+              label: 'GitHub',
               href: 'https://github.com/custodia-labs/sercha-core',
             },
             {
               label: 'Report Issues',
-              href: 'https://github.com/custodia-labs/sercha-cli/issues',
+              href: 'https://github.com/custodia-labs/sercha-core/issues',
             },
           ],
         },
