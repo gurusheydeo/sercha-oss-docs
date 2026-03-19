@@ -156,7 +156,7 @@ const config: Config = {
             },
             {
               label: 'API Reference',
-              to: '/core/api_reference',
+              to: '/core/api_reference/sercha-core-api',
             },
           ],
         },

@@ -11,7 +11,7 @@ Sercha Core is the server component of the Sercha search platform. It provides a
 
 ## What is Sercha Core?
 
-While the [Sercha CLI](/cli/overview) is designed for individual use, Sercha Core is built for teams and organizations. It runs as a containerized service that multiple users can connect to through the REST API.
+Sercha Core is built for teams and organizations. It runs as a containerized service that multiple users can connect to through the REST API.
 
 ## Key Features
 
