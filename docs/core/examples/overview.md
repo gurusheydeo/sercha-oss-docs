@@ -23,7 +23,7 @@ See the [Quickstart Guide](/core/quickstart) for step-by-step instructions.
 
 ```bash
 # Clone the repository
-git clone https://github.com/custodia-labs/sercha-core.git
+git clone https://github.com/sercha-oss/sercha-core.git
 cd sercha-core/examples/quickstart
 
 # Start with UI (recommended)

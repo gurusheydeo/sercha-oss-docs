@@ -1483,7 +1483,7 @@ host: localhost:8081
 info:
   contact:
     name: Sercha OSS
-    url: https://github.com/custodia-labs/sercha-core/issues
+    url: https://github.com/sercha-oss/sercha-core/issues
   description: Privacy-focused enterprise search API. Sercha Core provides full-text
     and semantic search across your connected data sources.
   license:
