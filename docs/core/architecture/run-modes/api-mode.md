@@ -19,8 +19,10 @@ services:
       PORT: 8080
       DATABASE_URL: postgres://...
       REDIS_URL: redis://...
-      VESPA_URL: http://...
+      OPENSEARCH_URL: http://...
+      PGVECTOR_URL: postgres://...
       JWT_SECRET: ${JWT_SECRET}
+      MASTER_KEY: ${MASTER_KEY}
 ```
 
 ## What Runs
@@ -46,7 +48,7 @@ API mode serves all REST endpoints:
 | Documents | `/api/v1/documents/*` |
 | Users | `/api/v1/users/*`, `/api/v1/me` |
 | Settings | `/api/v1/settings/*` |
-| Admin | `/api/v1/admin/vespa/*` |
+| Admin | `/api/v1/admin/*` |
 
 ## Health Checks
 

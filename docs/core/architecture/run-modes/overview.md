@@ -42,8 +42,8 @@ flowchart TB
     subgraph "Combined (RUN_MODE=all)"
         A1[HTTP Server] --> S1[Services]
         W1[Worker] --> S1
-        S1 --> D1[(PostgreSQL)]
-        S1 --> V1[(Vespa)]
+        S1 --> D1[(PostgreSQL + pgvector)]
+        S1 --> V1[(OpenSearch)]
     end
 
     subgraph "Split Deployment"
@@ -55,8 +55,8 @@ flowchart TB
         W3a[Worker Container] --> Q[(Redis Queue)]
         W3b[Worker Container] --> Q
         Q --> S2
-        S2 --> D2[(PostgreSQL)]
-        S2 --> V2[(Vespa)]
+        S2 --> D2[(PostgreSQL + pgvector)]
+        S2 --> V2[(OpenSearch)]
     end
 ```
 
@@ -67,7 +67,8 @@ All containers connect to the same backing services:
 | Service | Purpose | Required |
 |---------|---------|----------|
 | PostgreSQL | User data, documents, metadata | Yes |
-| Vespa | Search index | Yes |
+| pgvector | Vector search (PostgreSQL extension) | Optional |
+| OpenSearch | BM25 text search | Optional |
 | Redis | Sessions, queue, distributed locks | No (falls back to PostgreSQL) |
 
 ## Graceful Shutdown

@@ -1,0 +1,63 @@
+---
+id: list-connections
+title: "List connections"
+description: "Get all connector connections. Connections represent authenticated connections to external data sources (OAuth tokens, API keys, etc.)."
+sidebar_label: "List connections"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVFmtv2zbwrxD8tAG2lccGFP7mpGmWNm0C2MWApYFBUxebiURqJOXEFfTfd0dJNuU4BfptBYLofC/e+67iKThpVeGV0XzML8EzkWVMGq1BemM7CMluxM53P5iFwoIDjQKlX+FXSeEhjQWYNwxePFgtMpYKL5gzpZXg2G83ExRC+hNoN2CT2yv2BBuEwMvR7yM+4Ki7QBXg+LjiJ0dH9OnbevMJ2fA1j28TVRRFRjYgNXl0xFJxJ1eQC4KUhzzoKqwpwHrVaBZSmlL7uUrpl98UgJqdt0oveT3g5No8B78ygQ66zPn4jhvCn+DzolBzNByhhXBK4teBXSsJ81YxYgrh+f1gT/eAvwxJ21CaPEcHgjEUk8/hsdvJDHlvwaIfGLuJxKA5NqNwkVmtbBQPR2ah1u3fYdn7rexaYFZyCHK7d0NayLEdCnPzKXi4Q521vu4w08brydbpviv3aLO0QPUxF/5gpN9IQCacn5fubTly4iAh5GgOL4Wym4MMWAhrlYKdN5RddpfKr8oFOoFAJghYKL8o5ROQZy4T8gm/qXLS2BSh3HkQWFxojAm1GcryIStBSyA1xiwzmKdGEs+jsgI/mdIgbES1ak3MKZbnwrwgZDR0SHdKEkaK7IFUfAeNqScjFFa/xRL6QYHFib5tXZ4h66XyfwUv95DXYh95Fnkf46dtJGLc+21UYuzn6ayNUIz90kUrRp7HkeuZFuL0vgliTPjYBDRGXXfBPaCgDWnP6G3MY+yNPsg8Pd1/jPLyYbqH/Weboxh7tc1XXW8zZhaPODD5DiGsFRte18Tzx9Hx69H3VVNxG6u+Q/ozQ7CvhaYuWItDvhu2fLA3HgM5AC8iLzIyTum1yFSKMv+W4DxbmJSmw157vfau9eb0tR0fjF2oNAXNhkykudLM6GzzS/n156EFFZJNI5h2AtjGpl/IrZq2mSyt8jhA7yp+hj0FliY7/ryvaeSIZZgr0V1Ak6hbmHwJ7QJECZ5El0G7KHFHBc2lzZBh5X0xTpIw51bG+fG7o3fHCa7YZH2M3RGzubf57ndWTymSTWRi2/cD+/HvGWvozUEyYliRufBj9q2VY1Ug1N94mLlkBAhsad7tn7DvqB9FO9K6Ti4ULU8KpdIPht6m7AsZst/K4vKUK8FupjRD+j42q2iEEyNxgWtonOtAHLSQKOcwrzQ8+k7d4ugScjN8MJLWJwMqxsIqB1iOAuXp6Bqx9u1zVMXahejYQ5llQ4+XGxM6RfZc0HXXyQlp0Qi2wVOuO/ZQf3zejcJ+k0AlunNzUgjMBzsZHfXcRC+fn59HIlBHxi6TVtQl11fnF1+mF0MUGa18noURiTs5ClowHD1BlVRNje/H+AQteKwNND0y4VphB/TLsBe1ateb/6NTuK0lSkhSZEKFEzAEsGp7647LfgdSWxC6qvAuha82q2tC4wigY+gOQTwLlFhQKO/oOmvrmZqR7lnMFp6NBXUvjo+yKeW9UVXHnX55MePNuRzdWlj9zXHcAqS9I+lNpHu/exoT6D+1/UGRqmp6Cx3r+BvSmxLblm24KYy4hev/AI//h4g=
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"List connections"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/connections"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get all connector connections. Connections represent authenticated connections to external data sources (OAuth tokens, API keys, etc.).
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"items":{"properties":{"account_id":{"type":"string"},"auth_method":{"enum":["oauth2","api_key","basic","service_account","pat"],"type":"string","x-enum-comments":{"AuthMethodPAT":"Personal Access Token"},"x-enum-descriptions":["","","","","Personal Access Token"],"x-enum-varnames":["AuthMethodOAuth2","AuthMethodAPIKey","AuthMethodBasic","AuthMethodServiceAccount","AuthMethodPAT"]},"created_at":{"type":"string"},"id":{"type":"string"},"last_used_at":{"type":"string"},"name":{"type":"string"},"oauth_expiry":{"type":"string"},"provider_type":{"enum":["github","gitlab","bitbucket","slack","discord","msteams","notion","confluence","google_docs","jira","linear","google_drive","dropbox","onedrive","s3","localfs","zendesk","intercom"],"type":"string","x-enum-varnames":["ProviderTypeGitHub","ProviderTypeGitLab","ProviderTypeBitbucket","ProviderTypeSlack","ProviderTypeDiscord","ProviderTypeMSTeams","ProviderTypeNotion","ProviderTypeConfluence","ProviderTypeGoogleDocs","ProviderTypeJira","ProviderTypeLinear","ProviderTypeGoogleDrive","ProviderTypeDropbox","ProviderTypeOneDrive","ProviderTypeS3","ProviderTypeLocalFS","ProviderTypeZendesk","ProviderTypeIntercom"]}},"type":"object"},"type":"array"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

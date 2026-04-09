@@ -55,19 +55,46 @@ When no LLM is configured:
 | Ollama | llama3, mistral, etc. | Local inference |
 | None | — | Graceful degradation |
 
-<!-- TODO: Add Core-specific adapter documentation and configuration examples -->
-
 ## Configuration
 
-<!-- TODO: Add detailed Core configuration examples -->
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `LLM_PROVIDER` | - | Provider: `openai`, `anthropic`, `ollama` |
+| `LLM_API_KEY` | - | API key for the provider |
+| `LLM_MODEL` | - | Model name (e.g., `gpt-4o-mini`) |
+| `LLM_BASE_URL` | - | Custom API endpoint (optional) |
+
+### OpenAI Configuration
 
 ```bash
 LLM_PROVIDER=openai
 LLM_API_KEY=sk-...
 LLM_MODEL=gpt-4o-mini
+```
 
-# Or for local inference
+### Anthropic Configuration
+
+```bash
+LLM_PROVIDER=anthropic
+LLM_API_KEY=sk-ant-...
+LLM_MODEL=claude-3-haiku-20240307
+```
+
+### Ollama (Local) Configuration
+
+```bash
 LLM_PROVIDER=ollama
 LLM_BASE_URL=http://localhost:11434
 LLM_MODEL=llama3
 ```
+
+## Key Source Files
+
+| File | Description |
+|------|-------------|
+| `internal/core/ports/llm.go` | LLM service port interface |
+| `internal/core/services/llm.go` | LLM orchestration service |
+| `internal/adapters/driven/openai/llm.go` | OpenAI adapter |
+| `internal/adapters/driven/ollama/llm.go` | Ollama adapter |

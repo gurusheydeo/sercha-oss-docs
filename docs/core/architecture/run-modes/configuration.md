@@ -53,11 +53,13 @@ redis://host:port
 redis://:password@host:port
 ```
 
-## Vespa
+## Search Backends (Optional)
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `VESPA_URL` | `http://localhost:19071` | Vespa config endpoint |
+| `OPENSEARCH_URL` | - | OpenSearch URL for BM25 search |
+| `PGVECTOR_URL` | - | PostgreSQL URL for vector search (can be same as DATABASE_URL) |
+| `PGVECTOR_DIMENSIONS` | `1536` | Vector dimensions (default matches OpenAI ada-002) |
 
 ## Worker Settings
 
@@ -85,7 +87,9 @@ When running multiple worker containers, `SCHEDULER_LOCK_REQUIRED=true` ensures 
 environment:
   DATABASE_URL: postgres://sercha:dev@postgres:5432/sercha?sslmode=disable
   JWT_SECRET: dev-secret-change-in-production
-  VESPA_URL: http://vespa:19071
+  MASTER_KEY: dev-master-key-change-in-production
+  OPENSEARCH_URL: http://opensearch:9200
+  PGVECTOR_URL: postgres://sercha:dev@postgres:5432/sercha?sslmode=disable
 ```
 
 ### Production API
@@ -96,8 +100,10 @@ environment:
   PORT: 8080
   DATABASE_URL: postgres://sercha:${DB_PASSWORD}@db.example.com:5432/sercha
   REDIS_URL: redis://redis.example.com:6379
-  VESPA_URL: http://vespa.example.com:19071
+  OPENSEARCH_URL: http://opensearch.example.com:9200
+  PGVECTOR_URL: postgres://sercha:${DB_PASSWORD}@db.example.com:5432/sercha
   JWT_SECRET: ${JWT_SECRET}
+  MASTER_KEY: ${MASTER_KEY}
   DB_MAX_OPEN_CONNS: 50
   DB_MAX_IDLE_CONNS: 10
 ```
@@ -109,8 +115,10 @@ environment:
   RUN_MODE: worker
   DATABASE_URL: postgres://sercha:${DB_PASSWORD}@db.example.com:5432/sercha
   REDIS_URL: redis://redis.example.com:6379
-  VESPA_URL: http://vespa.example.com:19071
+  OPENSEARCH_URL: http://opensearch.example.com:9200
+  PGVECTOR_URL: postgres://sercha:${DB_PASSWORD}@db.example.com:5432/sercha
   JWT_SECRET: ${JWT_SECRET}
+  MASTER_KEY: ${MASTER_KEY}
   WORKER_CONCURRENCY: 4
   SCHEDULER_ENABLED: "true"
   SCHEDULER_LOCK_REQUIRED: "true"

@@ -14,8 +14,8 @@ Deployment and integration examples for Sercha Core.
 ### Quickstart (Docker Compose)
 
 The quickstart example provides a complete Docker Compose setup with:
-- PostgreSQL database
-- Vespa search engine
+- PostgreSQL database with pgvector extension
+- OpenSearch for BM25 text search
 - Sercha Core API + Worker
 - Optional Admin UI (via `--profile ui`)
 

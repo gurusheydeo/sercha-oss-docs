@@ -36,8 +36,8 @@ graph TB
     end
 
     subgraph Infra["Infrastructure Layer"]
-        PG[PostgreSQL Adapter]
-        Vespa[Vespa Adapter]
+        PG[PostgreSQL + pgvector]
+        OS[OpenSearch Adapter]
     end
 
     subgraph Optional["Optional Adapters"]
@@ -110,15 +110,20 @@ External system integrations:
 | Adapter | Implements |
 |---------|------------|
 | `postgres/` | UserStore, DocumentStore, SourceStore, SessionStore, JobQueue |
-| `vespa/` | SearchEngine |
 
-**Optional:**
+**Optional (Search):**
+
+| Adapter | Implements |
+|---------|------------|
+| `opensearch/` | SearchEngine (BM25 text search) |
+| `pgvector/` | VectorIndex (semantic search) |
+
+**Optional (Infrastructure):**
 
 | Adapter | Implements |
 |---------|------------|
 | `redis/` | SessionStore, JobQueue (overrides PostgreSQL at scale) |
-| `embedding/` | EmbeddingService |
-| `llm/` | LLMService |
+| `ai/` | EmbeddingService, LLMService |
 
 **Dependencies:** Can import from Domain layer only.
 
@@ -140,10 +145,10 @@ internal/
 │   │   └── http/              # REST API
 │   └── driven/
 │       ├── postgres/          # Database adapter (required)
-│       ├── vespa/             # Search adapter (required)
+│       ├── opensearch/        # BM25 search adapter (optional)
+│       ├── pgvector/          # Vector search adapter (optional)
 │       ├── redis/             # Cache/queue adapter (optional)
-│       ├── embedding/         # Embedding adapter (optional)
-│       └── llm/               # LLM adapter (optional)
+│       └── ai/                # Embedding & LLM adapters (optional)
 ├── core/
 │   ├── domain/                # Entities and errors
 │   ├── ports/

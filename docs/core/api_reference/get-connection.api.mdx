@@ -1,0 +1,71 @@
+---
+id: get-connection
+title: "Get connection"
+description: "Get a connector installation by ID. Returns installation metadata without secrets."
+sidebar_label: "Get connection"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVV1lv2zgQ/iuEnnaB2M7RBQq/OUezbpMmqF0ssGlg0NTYZiKRWpJy4gr67ztD0RZ9pNiXfQgQRPRcnG84MxxWSQpWGFk4qVXST67BMc6EVgqE04ZJZR3PMk5sNl2x4WWXfQNXGmW3eTk4nnLH2Yt0C106ZkEYcLabHCUFNxz5YGzSf6h2dhzGVoaXKC6JXHC3wLVCRfwlU1wb+KeUBtKk70wJR4kVC8h50q8StypIyjoj1Typ60cStoVWFizxT4+P6bO98d0XtIlIHShHXF4UmRTej96TJZEq2qIwugDjZGOQC6FL5Sbo1/72Rwkv3WKCiBfa80GVOSJPNNFPcVdeyMkzrHA15VYK/FowSylgEgz7oLkEcWzbPkpeO2StI3Seo9/emQFavfWb3Q/GKHuPgdaKZ2wgBFjLxvoZFLkVdKMw0IEkaHXzd1j3caO75IaOxOu1+94NArCWNLgffvEIW9J5wNpSRg3qwQb0NpRH9BmTiDtIJ9wdjPQbB5Bx6yalfVuvyasDDH9GE3gtpFkdFMBEWMoUzKThtKc7x8QvpwgCFxmnxVS6aSmegZDZjItn/KbSCm0onXPrgOeWklz7lPTZOMtKUALIjNbzDCapFiTzJA3HTyYVcBNxjVyScIrpOdWvuNIK1kR7Rhpa8GxGJn6CwqN/9hWGxYgp9IsEiw/6PkAeo+i1dH96lDvEG75LPI/Qx/RRiERMu9xEJabejsYhQjH16zpaMfEijtyWaz5Ol00QY8bnJqAx6WYd3AMGQki3nN7EPKbeqYPCo7PdzehcPo12qH9vziimDjfnVdebE9PTJ+zR2O2I9uFQh7uV1uKhbjdq32L/c9vbNohFzcAYvBfW7TU52umMnu0XrzwvMt+81ZJnMmXUv8E6NtUpNYbdpv0WsJN9P74rqlJt5E9I3xmas30/PmkzlWkKinUYT3OpmFbZ6p3h+rDvx0UzRVDSYYdjM+zx7+u0/jhUVL4W6YakKxtM49M7glXTsCFKI93KT2Pn2PLA0MWLPx9pdHJ87tt+e36WLor1PJPMIcwnqJH0RCvVq2Rah2FmPeyVJkOphXNFv9fzd9FCW9f/ePzxpIdjUG95gpdqLGbflntsXR9ROJvwxAB2o/v5rzFr+MzRJNNlWGw5d332I+ixyjPqH8l68lwAx7bbzp6D0Gp4uHZCSNEpGnAonlLNNO1NKcCFT4GgiwOOWHB2N6I+v42xGRe62NV71kt1tLXrJV6G0MPujYdLM8c2qHu8XrhYdWZa0IjDgDKyMNIC5iRHfYZJ1WVh7ws0xcLQYtmszLKOg1ec8lWK4jlXToq1HhcGnWArXZr1GwDt+7HeIg0nwq6fQQRQnrYwBwXH82Cn3eMtmIjy5eWlyz23q828F1Rt72Z4cfV1dNVBle7C5RmhdDg3RUHzjiMSNEnZ1GA/wS1oCMPcQNcjF+jh0qZishOzqi3P/+eJE5KCItsrMi79vO0jUYVKeUiiSkGNPo6umNCU5cSsKnwKwHeT1TWRsaxp/nzAJU5ikk8pMvR2kpbWWIYznln4BczfvoXn0u9s/4l10N11YitqJdhfSvqFS3qp+CdYTQN5KA9ypmHQS6Fwkcpe+6vj7nF9NU6aF1I0XmMxNe+hsCDrB93ZLcbGBfpPXeSgSlU1pVrXG/mG9abGpgME5IQAG+e/gT9GFA==
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Get connection"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/connections/{id}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get a connector installation by ID. Returns installation metadata without secrets.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Installation ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"account_id":{"type":"string"},"auth_method":{"enum":["oauth2","api_key","basic","service_account","pat"],"type":"string","x-enum-comments":{"AuthMethodPAT":"Personal Access Token"},"x-enum-descriptions":["","","","","Personal Access Token"],"x-enum-varnames":["AuthMethodOAuth2","AuthMethodAPIKey","AuthMethodBasic","AuthMethodServiceAccount","AuthMethodPAT"]},"created_at":{"type":"string"},"id":{"type":"string"},"last_used_at":{"type":"string"},"name":{"type":"string"},"oauth_expiry":{"type":"string"},"provider_type":{"enum":["github","gitlab","bitbucket","slack","discord","msteams","notion","confluence","google_docs","jira","linear","google_drive","dropbox","onedrive","s3","localfs","zendesk","intercom"],"type":"string","x-enum-varnames":["ProviderTypeGitHub","ProviderTypeGitLab","ProviderTypeBitbucket","ProviderTypeSlack","ProviderTypeDiscord","ProviderTypeMSTeams","ProviderTypeNotion","ProviderTypeConfluence","ProviderTypeGoogleDocs","ProviderTypeJira","ProviderTypeLinear","ProviderTypeGoogleDrive","ProviderTypeDropbox","ProviderTypeOneDrive","ProviderTypeS3","ProviderTypeLocalFS","ProviderTypeZendesk","ProviderTypeIntercom"]}},"type":"object"}}}},"400":{"description":"Missing installation ID","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"Connection not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      
