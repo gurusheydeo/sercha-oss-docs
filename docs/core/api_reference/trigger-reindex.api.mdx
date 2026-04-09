@@ -1,0 +1,71 @@
+---
+id: trigger-reindex
+title: "Trigger reindex"
+description: "Create tasks to reindex sources. If no source IDs are provided, all enabled sources are reindexed."
+sidebar_label: "Trigger reindex"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVm1v2zYQ/isEP62ALdnZBhT+5mYZ4G1YgzrFPiTGQFNni41EaiRlxxP833dHUvFbUhQrsKFfbIq84z3PvbLjBThpVeOV0XzCry0ID8wL9+iYN8yC0gU8MWdaK8FlbLZi2qRPNvvJMWGBNdZsVAHFgImqYqDFsoKi1wkS6R4oMj7gFv5qwfl3ptjxScel0R60p6VomkpJQWDyT44QddzJEmpBKzTTgPUKXPxSxiofrjglcZtOmAOPLMrIh/UK7LvheDQidvj3BvH4XQOophDGGizfD3iE/qcq3OXt83BG1E3YQspoqQGpVoiMbUsly2fuBxc+aHQd1I3ffYGXEJTyUAfrCZ3zVuk1gUsbwlqx4/vDhll+AulxB7dOIX9IUYyAXQqBsmho4m0Le9pwDR5F116Nri55T6WExgdsXxyxcxjRBiN9oTTyiZEhZ8qQeQVbGfucdRTucDXaPA1+Dc6JNbzsH7yyD93XeBH3fhiNLmnM9EZUqmApjdmS8vhfO2V6O2NgbWAd3XNBNhyHxZOomyrm6osYzli+ymp8ieOjFq0vsUD+/poQ/y9svr/E8bOxS1UUoNmQiaJWmhldfVtR+vHl3PNgseVga7MbsBHTN0SLeivINvbt+46/A+x7doqZh5+L/YKqd4127/mUosZxowZMS2xUvDHOEzxBwjwPYc1Tq+B0L3nEhWtbW6FI6X0zyfPKSFGVqDx5O3o7zkWj8s0YW8CxmHtdbnGAPCc3RrccAz/36i9/3LF4jv3/EXTGMB1r4SfsIemxLhzsHzh1etIpQRRAkdSiJp9NUzH27a9vV436FWK/oth+OEzSmz48x5NxdDrK7vvgLPZkdmX68StkSJ1kew5WloK9n8/R8KmP1sqX7TKTps5dkBoa5/qlNBZy5RxC4hczCIfyRsjdcGVk67DPA2UyIsVx4NAnODMxGTOWbF+bw7PCsVVbVUMPT54JjRMTU1l7JXs9IS2CYDskSpNFY67h/YXw4vnZgjywJoDy+0Bz2giMJ7vKRic0keV2u81EOM2MXedJ1eW/za5vfp/fDFElK31dhTmifHXktAAcmeCVlI2R+xhNoCglMEI/gnBn1RqfHOyQxSdOO3ob/Tcvs5Rl5Oq8qXBEE+zgmi7V3T0PdReeEBEz1gcVDR113VI4+Gir/Z62MTctlTkuN8Iqsh2qfNBnO5XqI6Yzsos8h3cEgMSrNqb7WS+jqo0a8TnyWdnj5nH7fn6Hwsv05qxNQTpWbIkJ/k6oEvv3EQqEvY5XQq/b8NDg8U6qPJGq/lCTBGnQL4hVf6R3RwjPazoSoV+i9aJK18WKR4f28vHoVY3nRhKlKYQLRP0PAFskOw==
+sidebar_class_name: "post api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Trigger reindex"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/admin/reindex"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Create tasks to reindex sources. If no source IDs are provided, all enabled sources are reindexed.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"priority":{"description":"Priority sets the task priority (-100 to 100)","type":"integer"},"source_ids":{"description":"SourceIDs optionally specifies which sources to reindex\nIf empty, all enabled sources are reindexed","items":{"type":"string"},"type":"array"}},"type":"object"}}},"description":"Reindex options","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"202":{"description":"Accepted","content":{"application/json":{"schema":{"description":"Response containing task IDs created for reindex operation","properties":{"message":{"type":"string"},"task_ids":{"items":{"type":"string"},"type":"array"}},"type":"object"}}}},"400":{"description":"Invalid request body","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

@@ -1,0 +1,71 @@
+---
+id: open-document
+title: "Open document"
+description: "Get the external URL for a document. This returns the original URL in the source system (e.g., GitHub, Notion, etc.)."
+sidebar_label: "Open document"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVVk1v2zgQ/SsETy3gSEnRBQrfvI03m+1HijjBHtocaGpssZVI7XDk1Cvov++MJH/WKbB7WeRiU+QMZ97wzSMbnUG06CpyweuxvgJSlIOC7wToTaHub9+rRUBlVBZsXYKnRN3lLioEqtHHzjqgW7qNtfPdXAw1Wv5bR4JSvYBkmYzUlaPf6/lIfQwSb6SAbPIy0SNdGTQlcMyox5+bo6Quh8jq+pJNnUxVhnIee3biL5fxGOGv2iFkekxYw0hHm0Np9LjRtK7EKhI6v9Rt+yDGsQo+QpT1V+fn8ncY9OYd72mDJw4sq6aqCmeNrKZfo5g0eyGeSFjqsQklKDFUgOT6sDUW8gffTVkVkmBOVMVxmi4d5fU8saFMw6MHTBGqkM6LME9L43x6O51cfpgmpaA+xradCfOvYIlnZO71KYQfXIzstD3Yvrz/EfLk07UCRGbKk3i75UPEzq9M4TIlZweR1Dxk638B6uLHPO69qSlnQv4N2TND8/onRPKBuA1r/7ww/XKKdtd+kJYIuALsc3pGsHgygq3R0brTql/BIOCEWcefDyIuZJYiY9vTi5onWd3ywOKkl0Cd4Im9TjfNF9PGZW3KaXstAaQ0vRZ2MtFpA0tDEawp8hBp/Ob8zUVqKpeuLnQ72jeLT9s97HKfST37+uwjOC7vH3/eqX5dUfgGPlG/BSwNjdWXwU813UL7RW/EOQeTAe7keTJ0ZHeguypzUu9g3VXZ+UWQ2MIBYzsODL4zQJsbdTObseMhxj2ZjJ3VWYhxM7QBIWWB49Pl8hyB+oRuZez6bMHFj5ApEEpW6CLfV4zJ5opZlagh9lveSjGjVo53UYu6KM6I70dlfMbmpfHk7MbPWOQk1JovP8VgPJOG988MmeFCjHLbMblBiLqDOakMn4d6lZwfwGSUj4+PielWk4DLdHCN6fvrt9OPs+kZuyQ5lYWgJEfFXtG6xBkJbyls6rFfcAg2rZgbnPpeCjdMve1doI9K1uza8397Iwy0kdqnVcEXoeAYLtG+nT7rbTux/bh7FnQdxbyXZhCLppmbCPdYtK1Mc/uj9DEPVwadmUsB5QXiooy5YRemiPCTcry4HR4eL9XhQ+Vkvhvue5Eb1qBavnj4jTuhe8i0D2w1dJAk0i9MrIWK9lx+kMh2X2Oupndsa4aO3vWbbDbaDGT3k+kc92ufgvyK0Jx0aZq+m7moG/t+6UmPrUgMyAUBi+s/3ZugrQ==
+sidebar_class_name: "get api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Open document"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/documents/{id}/open"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Get the external URL for a document. This returns the original URL in the source system (e.g., GitHub, Notion, etc.).
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Document ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Document URL response","properties":{"url":{"example":"https://github.com/owner/repo/blob/main/README.md","type":"string"}},"type":"object"}}}},"400":{"description":"Missing document ID","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"Document not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

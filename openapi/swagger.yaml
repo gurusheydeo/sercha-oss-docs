@@ -1,33 +1,18 @@
 basePath: /api/v1
 definitions:
-  github_com_custodia-labs_sercha-core_internal_adapters_driven_ai.ModelMeta:
+  github_com_sercha-oss_sercha-core_internal_core_domain.AIModelInfo:
     properties:
       dimensions:
-        description: for embedding models
+        description: For embedding models only
         type: integer
       id:
+        description: Model identifier (e.g., "text-embedding-3-small")
         type: string
       name:
+        description: Display name
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_adapters_driven_ai.ProviderMeta:
-    properties:
-      api_key_url:
-        type: string
-      id:
-        type: string
-      models:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_adapters_driven_ai.ModelMeta'
-        type: array
-      name:
-        type: string
-      requires_api_key:
-        type: boolean
-      requires_base_url:
-        type: boolean
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider:
+  github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider:
     enum:
     - openai
     - anthropic
@@ -41,7 +26,37 @@ definitions:
     - AIProviderOllama
     - AIProviderCohere
     - AIProviderVoyage
-  github_com_custodia-labs_sercha-core_internal_core_domain.AuthMethod:
+  github_com_sercha-oss_sercha-core_internal_core_domain.AIProviderInfo:
+    properties:
+      api_key_url:
+        description: URL to get API key
+        type: string
+      id:
+        description: Provider identifier (matches AIProvider)
+        type: string
+      models:
+        description: Available models
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIModelInfo'
+        type: array
+      name:
+        description: Display name
+        type: string
+      requires_api_key:
+        description: Whether API key is needed
+        type: boolean
+      requires_base_url:
+        description: Whether base URL is needed (e.g., Ollama)
+        type: boolean
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.AnalyticsPeriod:
+    properties:
+      end:
+        type: string
+      start:
+        type: string
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.AuthMethod:
     enum:
     - oauth2
     - api_key
@@ -63,7 +78,29 @@ definitions:
     - AuthMethodBasic
     - AuthMethodServiceAccount
     - AuthMethodPAT
-  github_com_custodia-labs_sercha-core_internal_core_domain.Chunk:
+  github_com_sercha-oss_sercha-core_internal_core_domain.CapabilityPreferences:
+    properties:
+      bm25_search_enabled:
+        description: Search preferences (can toggle down, but requires indexing to
+          be enabled)
+        type: boolean
+      embedding_indexing_enabled:
+        description: Enable vector indexing
+        type: boolean
+      team_id:
+        description: TeamID is the team these preferences belong to
+        type: string
+      text_indexing_enabled:
+        description: Indexing preferences (explicitly controlled by user)
+        type: boolean
+      updated_at:
+        description: UpdatedAt tracks when preferences were last modified
+        type: string
+      vector_search_enabled:
+        description: Enable vector search (if embedding indexing enabled)
+        type: boolean
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.Chunk:
     properties:
       content:
         type: string
@@ -87,7 +124,39 @@ definitions:
       start_char:
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.Document:
+  github_com_sercha-oss_sercha-core_internal_core_domain.ConnectionSummary:
+    properties:
+      account_id:
+        type: string
+      auth_method:
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AuthMethod'
+      created_at:
+        type: string
+      id:
+        type: string
+      last_used_at:
+        type: string
+      name:
+        type: string
+      oauth_expiry:
+        type: string
+      provider_type:
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.Container:
+    properties:
+      id:
+        type: string
+      metadata:
+        additionalProperties:
+          type: string
+        type: object
+      name:
+        type: string
+      type:
+        type: string
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.Document:
     properties:
       created_at:
         type: string
@@ -114,42 +183,94 @@ definitions:
       updated_at:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.DocumentWithChunks:
+  github_com_sercha-oss_sercha-core_internal_core_domain.DocumentWithChunks:
     properties:
       chunks:
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Chunk'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Chunk'
         type: array
       document:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Document'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Document'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.InstallationSummary:
+  github_com_sercha-oss_sercha-core_internal_core_domain.JobDetail:
     properties:
-      account_id:
+      execution_logs:
+        description: ExecutionLogs contains log entries for this job (future enhancement)
+        items:
+          type: string
+        type: array
+      retry_history:
+        description: RetryHistory shows previous retry attempts
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.RetryAttempt'
+        type: array
+      source_name:
+        description: SourceName is the name of the source (if applicable)
         type: string
-      auth_method:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AuthMethod'
-      created_at:
-        type: string
-      id:
-        type: string
-      last_used_at:
-        type: string
-      name:
-        type: string
-      oauth_expiry:
-        type: string
-      provider_type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
+      task:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Task'
+        description: Task is the main task information
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.LoginRequest:
+  github_com_sercha-oss_sercha-core_internal_core_domain.JobHistory:
+    properties:
+      has_more:
+        description: HasMore indicates if there are more jobs beyond the current page
+        type: boolean
+      jobs:
+        description: Jobs is the list of historical job executions
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Task'
+        type: array
+      total_count:
+        description: TotalCount is the total number of jobs matching the query
+        type: integer
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.JobStats:
+    properties:
+      average_duration_ms:
+        description: AverageDuration is the average job duration in milliseconds
+        type: number
+      completed_jobs:
+        description: CompletedJobs is the number of successfully completed jobs
+        type: integer
+      failed_jobs:
+        description: FailedJobs is the number of failed jobs
+        type: integer
+      jobs_by_type:
+        additionalProperties:
+          format: int64
+          type: integer
+        description: JobsByType shows the breakdown by task type
+        type: object
+      pending_jobs:
+        description: PendingJobs is the number of jobs waiting to be processed
+        type: integer
+      period:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AnalyticsPeriod'
+        description: Period is the time range for these statistics
+      processing_jobs:
+        description: ProcessingJobs is the number of jobs currently being processed
+        type: integer
+      success_rate:
+        description: SuccessRate is the percentage of successful jobs (0-100)
+        type: number
+      total_jobs:
+        description: Total jobs across all statuses
+        type: integer
+      total_retries:
+        description: TotalRetries is the total number of retry attempts
+        type: integer
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.LoginRequest:
     properties:
       email:
         type: string
       password:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.LoginResponse:
+  github_com_sercha-oss_sercha-core_internal_core_domain.LoginResponse:
     properties:
       expires_at:
         type: string
@@ -158,9 +279,9 @@ definitions:
       token:
         type: string
       user:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType:
+  github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType:
     enum:
     - github
     - gitlab
@@ -177,6 +298,7 @@ definitions:
     - dropbox
     - onedrive
     - s3
+    - localfs
     - zendesk
     - intercom
     type: string
@@ -196,35 +318,34 @@ definitions:
     - ProviderTypeDropbox
     - ProviderTypeOneDrive
     - ProviderTypeS3
+    - ProviderTypeLocalFS
     - ProviderTypeZendesk
     - ProviderTypeIntercom
-  github_com_custodia-labs_sercha-core_internal_core_domain.QueryCount:
+  github_com_sercha-oss_sercha-core_internal_core_domain.QueryFrequency:
     properties:
       count:
         type: integer
       query:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.RankedChunk:
-    properties:
-      chunk:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Chunk'
-      document:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Document'
-      highlights:
-        description: Highlighted snippets
-        items:
-          type: string
-        type: array
-      score:
-        type: number
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.RefreshRequest:
+  github_com_sercha-oss_sercha-core_internal_core_domain.RefreshRequest:
     properties:
       refresh_token:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.Role:
+  github_com_sercha-oss_sercha-core_internal_core_domain.RetryAttempt:
+    properties:
+      attempt:
+        description: Attempt is the attempt number (1-indexed)
+        type: integer
+      error:
+        description: Error is the error message from this attempt
+        type: string
+      timestamp:
+        description: Timestamp is when this attempt occurred
+        type: string
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.Role:
     enum:
     - admin
     - member
@@ -242,45 +363,98 @@ definitions:
     - RoleAdmin
     - RoleMember
     - RoleViewer
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchAnalytics:
+  github_com_sercha-oss_sercha-core_internal_core_domain.ScheduledTask:
     properties:
-      avg_latency_ms:
+      enabled:
+        description: Enabled indicates if the schedule is active
+        type: boolean
+      id:
+        description: ID is the unique identifier for this scheduled task
+        type: string
+      interval:
+        allOf:
+        - $ref: '#/definitions/time.Duration'
+        description: Interval is how often to run the task
+      last_error:
+        description: LastError contains the last error if the scheduled task failed
+        type: string
+      last_run:
+        description: LastRun is when the task was last triggered
+        type: string
+      name:
+        description: Name is a human-readable name for the task
+        type: string
+      next_run:
+        description: NextRun is when the task should next be triggered
+        type: string
+      team_id:
+        description: TeamID is the team this schedule belongs to
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.TaskType'
+        description: Type is the task type to create when triggered
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchAnalytics:
+    properties:
+      average_duration_ms:
+        description: AverageDuration is the average search duration in milliseconds
         type: number
-      avg_result_count:
+      average_results:
+        description: AverageResults is the average number of results per search
         type: number
-      searches_this_week:
-        type: integer
-      searches_today:
-        type: integer
+      period:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AnalyticsPeriod'
+        description: Period is the time range for these analytics
+      searches_by_mode:
+        additionalProperties:
+          format: int64
+          type: integer
+        description: SearchesByMode shows the breakdown by search mode
+        type: object
       top_queries:
+        description: TopQueries are the most common search queries
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.QueryCount'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.QueryFrequency'
         type: array
       total_searches:
+        description: TotalSearches is the total number of searches in the period
         type: integer
       unique_users:
+        description: UniqueUsers is the number of unique users who searched
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchMetricPoint:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchMetrics:
     properties:
-      search_count:
+      fast_searches:
+        description: FastSearches is the number of searches under 100ms
         type: integer
-      timestamp:
-        type: string
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchMetrics:
-    properties:
+      medium_searches:
+        description: MediumSearches is the number of searches 100ms-500ms
+        type: integer
+      p50_duration_ms:
+        description: P50Duration is the 50th percentile search duration in milliseconds
+        type: number
+      p95_duration_ms:
+        description: P95Duration is the 95th percentile search duration in milliseconds
+        type: number
+      p99_duration_ms:
+        description: P99Duration is the 99th percentile search duration in milliseconds
+        type: number
       period:
-        description: '"hourly" or "daily"'
-        type: string
-      points:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMetricPoint'
-        type: array
-      total_count:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AnalyticsPeriod'
+        description: Period is the time range for these metrics
+      slow_searches:
+        description: SlowSearches is the number of searches over 500ms
+        type: integer
+      zero_result_searches:
+        description: ZeroResultSearches is the number of searches that returned no
+          results
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode:
     enum:
     - hybrid
     - text
@@ -298,40 +472,51 @@ definitions:
     - SearchModeHybrid
     - SearchModeTextOnly
     - SearchModeSemanticOnly
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchQuery:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchQuery:
     properties:
       created_at:
+        description: CreatedAt is when the search was performed
         type: string
-      id:
-        type: string
-      latency_ms:
+      duration:
+        description: Duration is how long the search took to execute (in nanoseconds)
         type: integer
+      has_filters:
+        description: Filters are the additional filters applied
+        type: boolean
+      id:
+        description: ID is the unique identifier for this search query log entry
+        type: string
       mode:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
-        description: hybrid, text, semantic
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
+        description: Mode is the search mode used (hybrid, text, semantic)
       query:
+        description: Query is the search text that was submitted
         type: string
       result_count:
+        description: ResultCount is the number of results returned
         type: integer
       source_ids:
+        description: SourceIDs are the source IDs that were filtered (if any)
         items:
           type: string
         type: array
       team_id:
+        description: TeamID is the team that performed the search
         type: string
       user_id:
+        description: UserID is the user who performed the search
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SearchResult:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchResult:
     properties:
       mode:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
       query:
         type: string
       results:
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.RankedChunk'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchResultItem'
         type: array
       took:
         example: 1500000
@@ -339,23 +524,39 @@ definitions:
       total_count:
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.Settings:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SearchResultItem:
     properties:
-      auto_suggest_enabled:
-        type: boolean
+      document_id:
+        type: string
+      indexed_at:
+        type: string
+      mime_type:
+        type: string
+      path:
+        type: string
+      score:
+        type: number
+      snippet:
+        type: string
+      source_id:
+        type: string
+      title:
+        type: string
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.Settings:
+    properties:
       default_search_mode:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
         description: Search Defaults
       max_results_per_page:
         type: integer
       results_per_page:
         type: integer
-      semantic_search_enabled:
-        description: Feature Flags
-        type: boolean
       sync_enabled:
         type: boolean
+      sync_exclusions:
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncExclusionSettings'
       sync_interval_minutes:
         description: Sync Configuration
         type: integer
@@ -368,10 +569,21 @@ definitions:
         description: User ID
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.Source:
+  github_com_sercha-oss_sercha-core_internal_core_domain.Source:
     properties:
       config:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SourceConfig'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SourceConfig'
+      connection_id:
+        description: ConnectionID references the connector connection for authentication
+        type: string
+      containers:
+        description: |-
+          Containers lists the containers to index (typed)
+          Empty means index all accessible containers
+          Examples: repos for GitHub, channels for Slack, folders for Drive
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Container'
+        type: array
       created_at:
         type: string
       created_by:
@@ -381,25 +593,14 @@ definitions:
         type: boolean
       id:
         type: string
-      installation_id:
-        description: InstallationID references the connector installation for authentication
-        type: string
       name:
         type: string
       provider_type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
-      selected_containers:
-        description: |-
-          SelectedContainers lists the container IDs to index
-          Empty means index all accessible containers
-          Examples: ["owner/repo1", "owner/repo2"] for GitHub
-        items:
-          type: string
-        type: array
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
       updated_at:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SourceConfig:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SourceConfig:
     properties:
       base_url:
         description: Generic
@@ -454,18 +655,37 @@ definitions:
           type: string
         type: array
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SourceSummary:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SourceSummary:
     properties:
       document_count:
         type: integer
       last_sync_at:
         type: string
       source:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Source'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Source'
       sync_status:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SyncState:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SyncExclusionSettings:
+    properties:
+      custom_patterns:
+        description: CustomPatterns are user-defined exclusion patterns
+        items:
+          type: string
+        type: array
+      disabled_patterns:
+        description: DisabledPatterns are the default patterns that have been toggled
+          off
+        items:
+          type: string
+        type: array
+      enabled_patterns:
+        description: EnabledPatterns are the default patterns that are currently enabled
+        items:
+          type: string
+        type: array
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.SyncState:
     properties:
       completed_at:
         type: string
@@ -483,11 +703,11 @@ definitions:
       started_at:
         type: string
       stats:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SyncStats'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncStats'
       status:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SyncStatus'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncStatus'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SyncStats:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SyncStats:
     properties:
       chunks_indexed:
         type: integer
@@ -500,7 +720,7 @@ definitions:
       errors:
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.SyncStatus:
+  github_com_sercha-oss_sercha-core_internal_core_domain.SyncStatus:
     enum:
     - idle
     - running
@@ -512,7 +732,62 @@ definitions:
     - SyncStatusRunning
     - SyncStatusCompleted
     - SyncStatusFailed
-  github_com_custodia-labs_sercha-core_internal_core_domain.TaskStatus:
+  github_com_sercha-oss_sercha-core_internal_core_domain.Task:
+    properties:
+      attempts:
+        description: Attempts is how many times this task has been attempted
+        type: integer
+      completed_at:
+        description: CompletedAt is when processing finished (nil if not complete)
+        type: string
+      created_at:
+        description: CreatedAt is when the task was enqueued
+        type: string
+      error:
+        description: Error contains the last error message if failed
+        type: string
+      id:
+        description: ID is the unique identifier for this task
+        type: string
+      max_attempts:
+        description: MaxAttempts is the maximum retry count before giving up
+        type: integer
+      payload:
+        additionalProperties:
+          type: string
+        description: |-
+          Payload contains task-specific data
+          For sync_source: {"source_id": "src-123"}
+          For sync_all: {} (empty)
+        type: object
+      priority:
+        description: |-
+          Priority determines processing order (higher = more urgent)
+          Default is 0, range is -100 to 100
+        type: integer
+      scheduled_for:
+        description: ScheduledFor is when the task should be processed (for delayed
+          tasks)
+        type: string
+      started_at:
+        description: StartedAt is when processing began (nil if not started)
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.TaskStatus'
+        description: Status is the current state of the task
+      team_id:
+        description: TeamID is the team this task belongs to
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.TaskType'
+        description: Type identifies what kind of task this is
+      updated_at:
+        description: UpdatedAt is when the task was last modified
+        type: string
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.TaskStatus:
     enum:
     - pending
     - processing
@@ -524,19 +799,31 @@ definitions:
     - TaskStatusProcessing
     - TaskStatusCompleted
     - TaskStatusFailed
-  github_com_custodia-labs_sercha-core_internal_core_domain.TaskType:
+  github_com_sercha-oss_sercha-core_internal_core_domain.TaskType:
     enum:
     - sync_source
     - sync_all
-    - refresh_tokens
-    - reindex
     type: string
     x-enum-varnames:
     - TaskTypeSyncSource
     - TaskTypeSyncAll
-    - TaskTypeRefreshTokens
-    - TaskTypeReindex
-  github_com_custodia-labs_sercha-core_internal_core_domain.User:
+  github_com_sercha-oss_sercha-core_internal_core_domain.UpcomingJobs:
+    properties:
+      next_scheduled_run:
+        description: NextScheduledRun is when the next scheduled task will run
+        type: string
+      pending_tasks:
+        description: PendingTasks are tasks ready to be processed now
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Task'
+        type: array
+      scheduled_tasks:
+        description: ScheduledTasks are recurring task schedules
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ScheduledTask'
+        type: array
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_domain.User:
     properties:
       active:
         type: boolean
@@ -551,13 +838,13 @@ definitions:
       name:
         type: string
       role:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Role'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Role'
       team_id:
         type: string
       updated_at:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary:
+  github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary:
     properties:
       active:
         type: boolean
@@ -570,188 +857,9 @@ definitions:
       name:
         type: string
       role:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Role'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Role'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaClusterInfo:
-    properties:
-      container_clusters:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaContainerCluster'
-        type: array
-      content_clusters:
-        description: Parsed cluster information
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaContentCluster'
-        type: array
-      hosts:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaHost'
-        type: array
-      hosts_xml:
-        type: string
-      our_schema_deployed:
-        description: Our schema status
-        type: boolean
-      schemas:
-        items:
-          type: string
-        type: array
-      services_xml:
-        description: Raw XML content (for persistence and future reference)
-        type: string
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaContainerCluster:
-    properties:
-      has_feed:
-        type: boolean
-      has_query:
-        type: boolean
-      id:
-        type: string
-      nodes:
-        items:
-          type: string
-        type: array
-      port:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaContentCluster:
-    properties:
-      documents:
-        items:
-          type: string
-        type: array
-      id:
-        type: string
-      nodes:
-        items:
-          type: string
-        type: array
-      redundancy:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaDocumentMetrics:
-    properties:
-      active:
-        description: Active documents
-        type: integer
-      ready:
-        description: Ready/searchable documents
-        type: integer
-      removed:
-        description: Removed (pending deletion)
-        type: integer
-      total:
-        description: Total documents
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaFeedMetrics:
-    properties:
-      avg_latency_ms:
-        type: number
-      failed_operations:
-        type: integer
-      pending_operations:
-        type: integer
-      succeeded_operations:
-        type: integer
-      total_operations:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaHost:
-    properties:
-      alias:
-        type: string
-      hostname:
-        type: string
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaMetrics:
-    properties:
-      documents:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaDocumentMetrics'
-        description: Document metrics
-      feed:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaFeedMetrics'
-        description: Feed/indexing metrics
-      nodes:
-        description: Per-node breakdown
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaNodeMetrics'
-        type: array
-      query_performance:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaQueryMetrics'
-        description: Query performance metrics
-      storage:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaStorageMetrics'
-        description: Storage metrics
-      timestamp:
-        description: Timestamp when metrics were collected (Unix timestamp)
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaNodeMetrics:
-    properties:
-      disk_used_bytes:
-        type: integer
-      disk_used_percent:
-        type: number
-      document_count:
-        type: integer
-      hostname:
-        type: string
-      memory_used_bytes:
-        type: integer
-      memory_used_percent:
-        type: number
-      role:
-        description: '"container" or "content"'
-        type: string
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaQueryMetrics:
-    properties:
-      avg_latency_ms:
-        description: Average query latency
-        type: number
-      degraded_queries:
-        description: Partial results due to timeouts
-        type: integer
-      empty_results:
-        type: integer
-      failed_queries:
-        type: integer
-      queries_per_second:
-        description: Peak QPS
-        type: number
-      total_queries:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaSchemaMode:
-    enum:
-    - ""
-    - bm25
-    - hybrid
-    type: string
-    x-enum-varnames:
-    - VespacSchemaModeNone
-    - VespacSchemaModeBM25
-    - VespacSchemaModeHybrid
-  github_com_custodia-labs_sercha-core_internal_core_domain.VespaStorageMetrics:
-    properties:
-      disk_used_bytes:
-        type: integer
-      disk_used_percent:
-        description: 0-100
-        type: number
-      memory_used_bytes:
-        type: integer
-      memory_used_percent:
-        description: 0-100
-        type: number
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driven.Container:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driven.Container:
     properties:
       description:
         description: Description is an optional description of the container.
@@ -782,7 +890,31 @@ definitions:
           Examples: "repository", "shared_drive", "space", "project", "channel"
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.AIServiceStatus:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIProvidersCapability:
+    properties:
+      embedding:
+        description: Embedding lists providers available for embedding service
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
+        type: array
+      llm:
+        description: LLM lists providers available for LLM service
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
+        type: array
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIProvidersResponse:
+    properties:
+      embedding:
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProviderInfo'
+        type: array
+      llm:
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProviderInfo'
+        type: array
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIServiceStatus:
     properties:
       available:
         type: boolean
@@ -792,24 +924,18 @@ definitions:
       model:
         type: string
       provider:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.AISettingsStatus:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AISettingsStatus:
     properties:
       effective_search_mode:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
       embedding:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AIServiceStatus'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIServiceStatus'
       llm:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AIServiceStatus'
-      reindex_reason:
-        type: string
-      reindex_required:
-        type: boolean
-      vespa:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.VespaServiceStatus'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIServiceStatus'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.AuthorizeRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AuthorizeRequest:
     description: Request to start OAuth authorization flow
     properties:
       installation_name:
@@ -820,18 +946,17 @@ definitions:
         type: string
       provider_type:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
         description: ProviderType is the OAuth provider (github, slack, notion, etc.)
         example: github
       return_context:
         description: |-
-          ReturnContext indicates where to redirect after OAuth completion.
-          Valid values: "setup" (FTUE flow) or "admin" (admin dashboard).
-          If empty, defaults to "admin".
-        example: setup
+          ReturnContext indicates where to redirect after OAuth completes.
+          Values: "setup" (FTUE), "admin-sources" (add source wizard), or empty for default.
+        example: admin-sources
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.AuthorizeResponse:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.AuthorizeResponse:
     description: Response containing the OAuth authorization URL
     properties:
       authorization_url:
@@ -850,53 +975,73 @@ definitions:
         example: abc123xyz
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.CallbackResponse:
-    description: Response after successful OAuth authorization
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilitiesResponse:
+    description: Information about what features are enabled via environment configuration
     properties:
-      installation:
+      ai_providers:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.InstallationSummary'
-        description: Installation is the created installation summary.
-      message:
-        description: Message provides a human-readable status message.
-        example: Successfully connected to GitHub as octocat
-        type: string
-      return_context:
-        description: |-
-          ReturnContext is the context to redirect to after OAuth completion.
-          Passed through from the authorize request for routing decisions.
-        example: setup
-        type: string
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIProvidersCapability'
+        description: AIProviders lists AI providers available for embedding and LLM
+      features:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.FeaturesCapability'
+        description: Features lists feature flags
+      limits:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.LimitsCapability'
+        description: Limits defines operational boundaries from environment configuration
+      oauth_providers:
+        description: OAuthProviders lists OAuth providers configured via environment
+          variables
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
+        type: array
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.ConnectVespaRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilityStatus:
     properties:
-      dev_mode:
-        description: |-
-          DevMode controls deployment behavior:
-          - true: Deploy our full app package (services.xml + schema) - for local development
-          - false: Fetch existing app package, add our schema, redeploy - for production clusters
+      active:
+        description: Active indicates both available AND enabled
         type: boolean
-      endpoint:
-        description: Endpoint is the Vespa cluster endpoint (optional, uses stored/default
-          if empty)
-        type: string
+      available:
+        description: Available indicates if the backend is configured and healthy
+        type: boolean
+      enabled:
+        description: Enabled indicates if the user has enabled this capability
+        type: boolean
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.CreateSourceRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateConnectionRequest:
+    description: Request to create a connection for API key or path-based connectors
+    properties:
+      api_key:
+        description: APIKey is the authentication credential (or path for localfs).
+        example: /data/test-docs
+        type: string
+      name:
+        description: Name is a human-readable name for the connection.
+        example: Local Test Docs
+        type: string
+      provider_type:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
+        description: ProviderType is the data source provider.
+        example: localfs
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateSourceRequest:
     properties:
       config:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SourceConfig'
-      installation_id:
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SourceConfig'
+      connection_id:
         type: string
+      containers:
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Container'
+        type: array
       name:
         type: string
       provider_type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
-      selected_containers:
-        items:
-          type: string
-        type: array
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.CreateUserRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateUserRequest:
     properties:
       email:
         type: string
@@ -905,120 +1050,68 @@ definitions:
       password:
         type: string
       role:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Role'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Role'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.EmbeddingSettingsInput:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.EmbeddingSettingsInput:
     properties:
-      api_key:
-        type: string
-      base_url:
-        type: string
       model:
         type: string
       provider:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobDetail:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.FeaturesCapability:
     properties:
-      attempts:
-        type: integer
-      completed_at:
-        type: string
-      created_at:
-        type: string
-      duration_ms:
-        type: integer
-      error:
-        type: string
-      id:
-        type: string
-      max_attempts:
-        type: integer
-      payload:
-        additionalProperties:
-          type: string
-        type: object
-      priority:
-        type: integer
-      scheduled_for:
-        type: string
-      started_at:
-        type: string
-      status:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskStatus'
-      team_id:
-        type: string
-      type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskType'
-      updated_at:
-        type: string
+      bm25_search:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilityStatus'
+        description: BM25Search indicates BM25 keyword search capability state (requires
+          search engine)
+      embedding_indexing:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilityStatus'
+        description: EmbeddingIndexing indicates embedding indexing capability state
+          (requires embedding service + vector store)
+      text_indexing:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilityStatus'
+        description: TextIndexing indicates BM25 text indexing capability state (requires
+          search engine e.g. OpenSearch)
+      vector_search:
+        allOf:
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilityStatus'
+        description: VectorSearch indicates vector similarity search capability state
+          (requires embedding service + vector store)
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobHistoryResponse:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.LLMSettingsInput:
     properties:
-      jobs:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobSummary'
-        type: array
-      limit:
-        type: integer
-      offset:
-        type: integer
-      total:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobStats:
-    properties:
-      completed:
-        type: integer
-      failed:
-        type: integer
-      oldest_pending_age_seconds:
-        type: integer
-      pending:
-        type: integer
-      processing:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobSummary:
-    properties:
-      attempts:
-        type: integer
-      completed_at:
-        type: string
-      created_at:
-        type: string
-      duration_ms:
-        type: integer
-      error:
-        type: string
-      id:
-        type: string
-      started_at:
-        type: string
-      status:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskStatus'
-      type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskType'
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.LLMSettingsInput:
-    properties:
-      api_key:
-        type: string
-      base_url:
-        type: string
       model:
         type: string
       provider:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.ListContainersResponse:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.LimitsCapability:
+    properties:
+      max_results_per_page:
+        description: MaxResultsPerPage is the maximum results per page
+        type: integer
+      max_workers:
+        description: MaxWorkers is the maximum number of sync workers
+        type: integer
+      sync_max_interval:
+        description: SyncMaxInterval is the maximum sync interval in minutes
+        type: integer
+      sync_min_interval:
+        description: SyncMinInterval is the minimum sync interval in minutes
+        type: integer
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.ListContainersResponse:
     description: Paginated list of containers available for indexing
     properties:
       containers:
         description: Containers is the list of available containers (repos, drives,
           spaces, etc.)
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driven.Container'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driven.Container'
         type: array
       has_more:
         description: HasMore indicates if there are more containers to fetch.
@@ -1028,43 +1121,11 @@ definitions:
           pages.
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.PendingJob:
-    properties:
-      created_at:
-        type: string
-      id:
-        type: string
-      payload:
-        additionalProperties:
-          type: string
-        type: object
-      priority:
-        type: integer
-      scheduled_for:
-        type: string
-      status:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskStatus'
-      type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskType'
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.ProviderConfigResponse:
-    properties:
-      created_at:
-        type: string
-      enabled:
-        type: boolean
-      has_secrets:
-        type: boolean
-      provider_type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
-      updated_at:
-        type: string
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.ProviderListItem:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.ProviderListItem:
     properties:
       auth_methods:
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AuthMethod'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AuthMethod'
         type: array
       configured:
         type: boolean
@@ -1077,54 +1138,9 @@ definitions:
       name:
         type: string
       type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.ProviderType'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ProviderType'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.SaveProviderConfigRequest:
-    properties:
-      api_key:
-        description: For non-OAuth providers (e.g., S3)
-        type: string
-      client_id:
-        type: string
-      client_secret:
-        type: string
-      enabled:
-        description: Defaults to true
-        type: boolean
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.ScheduledJob:
-    properties:
-      enabled:
-        type: boolean
-      id:
-        type: string
-      interval_minutes:
-        type: integer
-      last_error:
-        type: string
-      last_run:
-        type: string
-      name:
-        type: string
-      next_run:
-        type: string
-      type:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.TaskType'
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.SearchHistoryResponse:
-    properties:
-      limit:
-        type: integer
-      offset:
-        type: integer
-      searches:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchQuery'
-        type: array
-      total:
-        type: integer
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.SetupRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupRequest:
     properties:
       email:
         type: string
@@ -1133,125 +1149,88 @@ definitions:
       password:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.SetupResponse:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupResponse:
     properties:
       message:
         type: string
       user:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.User'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.User'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpcomingJobsResponse:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupStatusResponse:
     properties:
-      pending_tasks:
+      has_sources:
+        type: boolean
+      has_users:
+        type: boolean
+      setup_complete:
+        type: boolean
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.TriggerReindexRequest:
+    properties:
+      priority:
+        description: Priority sets the task priority (-100 to 100)
+        type: integer
+      source_ids:
+        description: |-
+          SourceIDs optionally specifies which sources to reindex
+          If empty, all enabled sources are reindexed
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.PendingJob'
-        type: array
-      scheduled_tasks:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ScheduledJob'
+          type: string
         type: array
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateAISettingsRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateAISettingsRequest:
     properties:
       embedding:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.EmbeddingSettingsInput'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.EmbeddingSettingsInput'
       llm:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.LLMSettingsInput'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.LLMSettingsInput'
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateSettingsRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateCapabilityPreferencesRequest:
     properties:
-      auto_suggest_enabled:
+      bm25_search_enabled:
+        description: BM25SearchEnabled controls BM25 search (requires text indexing)
         type: boolean
+      embedding_indexing_enabled:
+        description: EmbeddingIndexingEnabled controls vector/embedding indexing
+        type: boolean
+      text_indexing_enabled:
+        description: TextIndexingEnabled controls BM25 text indexing
+        type: boolean
+      vector_search_enabled:
+        description: VectorSearchEnabled controls vector search (requires embedding
+          indexing)
+        type: boolean
+    type: object
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateSettingsRequest:
+    properties:
       default_search_mode:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
       results_per_page:
         type: integer
-      semantic_search_enabled:
-        type: boolean
       sync_enabled:
         type: boolean
+      sync_exclusions:
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncExclusionSettings'
       sync_interval_minutes:
         type: integer
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateSourceRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateSourceRequest:
     properties:
       config:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SourceConfig'
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SourceConfig'
       enabled:
         type: boolean
       name:
         type: string
     type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateUserRequest:
+  github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateUserRequest:
     properties:
       active:
         type: boolean
       name:
         type: string
       role:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Role'
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.VespaServiceStatus:
-    properties:
-      can_upgrade:
-        type: boolean
-      connected:
-        type: boolean
-      embedding_dim:
-        type: integer
-      embeddings_enabled:
-        type: boolean
-      healthy:
-        type: boolean
-      schema_mode:
-        $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaSchemaMode'
-    type: object
-  github_com_custodia-labs_sercha-core_internal_core_ports_driving.VespaStatus:
-    properties:
-      can_upgrade:
-        description: CanUpgrade indicates if schema can be upgraded to hybrid
-        type: boolean
-      cluster_info:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaClusterInfo'
-        description: ClusterInfo contains parsed information about the Vespa cluster
-          (production mode only)
-      connected:
-        description: Connected indicates if Vespa is reachable and schema is deployed
-        type: boolean
-      dev_mode:
-        description: DevMode indicates if we deployed full app package (true) or just
-          added schema (false)
-        type: boolean
-      embedding_dim:
-        description: EmbeddingDim is the embedding dimension if embeddings are enabled
-        type: integer
-      embedding_provider:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider'
-        description: EmbeddingProvider is the provider used for embeddings
-      embeddings_enabled:
-        description: EmbeddingsEnabled indicates if hybrid search is available
-        type: boolean
-      endpoint:
-        description: Endpoint is the Vespa cluster endpoint
-        type: string
-      healthy:
-        description: Healthy indicates if the Vespa cluster is healthy
-        type: boolean
-      indexed_chunks:
-        description: IndexedChunks is the number of chunks currently indexed in Vespa
-        type: integer
-      reindex_required:
-        description: ReindexRequired indicates if documents need reindexing
-        type: boolean
-      schema_mode:
-        allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaSchemaMode'
-        description: SchemaMode indicates the deployed schema type (bm25, hybrid)
-      schema_version:
-        description: SchemaVersion is the deployed schema version
-        type: string
+        $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Role'
     type: object
   internal_adapters_driving_http.AdminStatsResponse:
     description: System-wide statistics for the admin dashboard
@@ -1261,7 +1240,7 @@ definitions:
       documents:
         $ref: '#/definitions/internal_adapters_driving_http.DocumentStats'
       installations:
-        $ref: '#/definitions/internal_adapters_driving_http.InstallationStats'
+        $ref: '#/definitions/internal_adapters_driving_http.ConnectionStats'
       sources:
         $ref: '#/definitions/internal_adapters_driving_http.SourceStats'
       users:
@@ -1281,28 +1260,28 @@ definitions:
         description: '"healthy" or "unhealthy"'
         type: string
     type: object
+  internal_adapters_driving_http.ConnectionStats:
+    properties:
+      total:
+        type: integer
+    type: object
   internal_adapters_driving_http.DocumentStats:
     properties:
       total:
         type: integer
+    type: object
+  internal_adapters_driving_http.DocumentURLResponse:
+    description: Document URL response
+    properties:
+      url:
+        example: https://github.com/owner/repo/blob/main/README.md
+        type: string
     type: object
   internal_adapters_driving_http.ErrorResponse:
     description: API error response
     properties:
       error:
         example: invalid request body
-        type: string
-    type: object
-  internal_adapters_driving_http.ExchangeRequest:
-    description: Request to exchange OAuth code for tokens
-    properties:
-      code:
-        description: Code is the authorization code from the OAuth provider.
-        example: abc123
-        type: string
-      state:
-        description: State is the CSRF token returned with the callback.
-        example: abc123xyz
         type: string
     type: object
   internal_adapters_driving_http.HealthResponse:
@@ -1316,48 +1295,20 @@ definitions:
         description: 'overall status: "healthy" or "degraded"'
         type: string
     type: object
-  internal_adapters_driving_http.InstallationStats:
+  internal_adapters_driving_http.ResetPasswordRequest:
+    description: Password reset request
     properties:
-      total:
-        type: integer
-    type: object
-  internal_adapters_driving_http.ReindexRequest:
-    properties:
-      confirm:
-        type: boolean
-    type: object
-  internal_adapters_driving_http.ReindexResponse:
-    properties:
-      message:
+      password:
         type: string
-      status:
-        type: string
-      task_id:
-        type: string
-    type: object
-  internal_adapters_driving_http.SetupStatusResponse:
-    description: Setup completion status for routing decisions
-    properties:
-      has_sources:
-        description: HasSources is true if at least one source is configured
-        type: boolean
-      has_users:
-        description: HasUsers is true if at least one user exists
-        type: boolean
-      setup_complete:
-        description: SetupComplete is true if initial setup (admin user creation)
-          is complete
-        type: boolean
-      vespa_connected:
-        description: VespaConnected is true if Vespa is connected
-        type: boolean
+    required:
+    - password
     type: object
   internal_adapters_driving_http.SourceDocumentsResponse:
     description: Paginated list of documents belonging to a source
     properties:
       documents:
         items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Document'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Document'
         type: array
       limit:
         type: integer
@@ -1390,18 +1341,25 @@ definitions:
         example: accepted
         type: string
     type: object
-  internal_adapters_driving_http.UpdateSelectionRequest:
-    description: Request to update which containers a source should index
+  internal_adapters_driving_http.TriggerReindexResponse:
+    description: Response containing task IDs created for reindex operation
     properties:
-      selected_containers:
-        description: |-
-          SelectedContainers is the list of container IDs to index.
-          Empty list means index all available containers.
-        example:
-        - '["octocat/hello-world"'
-        - '"octocat/spoon-knife"]'
+      message:
+        type: string
+      task_ids:
         items:
           type: string
+        type: array
+    type: object
+  internal_adapters_driving_http.UpdateContainersRequest:
+    description: Request to update which containers a source should index
+    properties:
+      containers:
+        description: |-
+          Containers is the list of containers to index.
+          Empty list means index all available containers.
+        items:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Container'
         type: array
     type: object
   internal_adapters_driving_http.UserStats:
@@ -1419,13 +1377,12 @@ definitions:
   internal_adapters_driving_http.aiProviderInfo:
     description: AI provider configuration status
     properties:
-      base_url:
-        example: https://api.openai.com/v1
-        type: string
       has_api_key:
+        description: True if credentials are configured via environment
         example: true
         type: boolean
       is_configured:
+        description: True if provider and model are selected
         example: true
         type: boolean
       model:
@@ -1433,19 +1390,8 @@ definitions:
         type: string
       provider:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.AIProvider'
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.AIProvider'
         example: openai
-    type: object
-  internal_adapters_driving_http.aiProvidersResponse:
-    properties:
-      embedding:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_adapters_driven_ai.ProviderMeta'
-        type: array
-      llm:
-        items:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_adapters_driven_ai.ProviderMeta'
-        type: array
     type: object
   internal_adapters_driving_http.aiSettingsResponse:
     properties:
@@ -1462,7 +1408,7 @@ definitions:
         type: integer
       mode:
         allOf:
-        - $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMode'
+        - $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMode'
         enum:
         - hybrid
         - text
@@ -1479,6 +1425,27 @@ definitions:
           type: string
         type: array
     type: object
+  time.Duration:
+    enum:
+    - -9223372036854775808
+    - 9223372036854775807
+    - 1
+    - 1000
+    - 1000000
+    - 1000000000
+    - 60000000000
+    - 3600000000000
+    format: int64
+    type: integer
+    x-enum-varnames:
+    - minDuration
+    - maxDuration
+    - Nanosecond
+    - Microsecond
+    - Millisecond
+    - Second
+    - Minute
+    - Hour
 host: localhost:8081
 info:
   contact:
@@ -1494,31 +1461,31 @@ info:
 paths:
   /admin/jobs:
     get:
-      description: Get paginated list of completed and failed jobs (admin only)
+      description: Retrieve job execution history with filtering and pagination
       parameters:
-      - description: Max results (default 20, max 100)
-        in: query
-        name: limit
-        type: integer
-      - description: Pagination offset
-        in: query
-        name: offset
-        type: integer
-      - description: 'Filter by status: completed or failed'
+      - description: Filter by status (pending, processing, completed, failed)
         in: query
         name: status
         type: string
-      - description: 'Filter by type: sync_all, sync_source, refresh_tokens'
+      - description: Filter by task type (sync_source, sync_all)
         in: query
         name: type
         type: string
+      - description: 'Maximum number of jobs to return (default: 50, max: 100)'
+        in: query
+        name: limit
+        type: integer
+      - description: Number of jobs to skip for pagination
+        in: query
+        name: offset
+        type: integer
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobHistoryResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.JobHistory'
         "401":
           description: Unauthorized
           schema:
@@ -1535,12 +1502,12 @@ paths:
       - BearerAuth: []
       summary: List job history
       tags:
-      - Jobs
+      - Admin
   /admin/jobs/{id}:
     get:
-      description: Get full details of a specific job/task (admin only)
+      description: Retrieve detailed information about a specific job
       parameters:
-      - description: Task ID
+      - description: Job ID
         in: path
         name: id
         required: true
@@ -1551,7 +1518,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobDetail'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.JobDetail'
+        "400":
+          description: Missing job ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
         "401":
           description: Unauthorized
           schema:
@@ -1572,18 +1543,23 @@ paths:
       - BearerAuth: []
       summary: Get job details
       tags:
-      - Jobs
+      - Admin
   /admin/jobs/stats:
     get:
-      description: Get queue statistics including pending, processing, completed,
-        and failed counts (admin only)
+      description: Compute aggregated job statistics for a time period
+      parameters:
+      - default: 24h
+        description: Time period (24h, 7d, 30d)
+        in: query
+        name: period
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.JobStats'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.JobStats'
         "401":
           description: Unauthorized
           schema:
@@ -1598,19 +1574,19 @@ paths:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: Get job queue statistics
+      summary: Get job statistics
       tags:
-      - Jobs
+      - Admin
   /admin/jobs/upcoming:
     get:
-      description: Get pending tasks and scheduled task configurations (admin only)
+      description: Retrieve pending tasks and scheduled task configurations
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpcomingJobsResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UpcomingJobs'
         "401":
           description: Unauthorized
           schema:
@@ -1625,31 +1601,31 @@ paths:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: List upcoming jobs
+      summary: Get upcoming jobs
       tags:
-      - Jobs
+      - Admin
   /admin/reindex:
     post:
       consumes:
       - application/json
-      description: Clear all indexed documents and trigger a full re-sync of all sources
-        (admin only).
+      description: Create tasks to reindex sources. If no source IDs are provided,
+        all enabled sources are reindexed.
       parameters:
-      - description: Reindex request with confirmation
+      - description: Reindex options
         in: body
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_adapters_driving_http.ReindexRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.TriggerReindexRequest'
       produces:
       - application/json
       responses:
         "202":
           description: Accepted
           schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ReindexResponse'
+            $ref: '#/definitions/internal_adapters_driving_http.TriggerReindexResponse'
         "400":
-          description: Missing confirmation or invalid request
+          description: Invalid request body
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
         "401":
@@ -1671,15 +1647,20 @@ paths:
       - Admin
   /admin/search/analytics:
     get:
-      description: Get aggregated search statistics including total searches, searches
-        today/this week, average latency, and top queries (admin only)
+      description: Compute search usage analytics for a time period
+      parameters:
+      - default: 24h
+        description: Time period (24h, 7d, 30d)
+        in: query
+        name: period
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchAnalytics'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchAnalytics'
         "401":
           description: Unauthorized
           schema:
@@ -1696,18 +1677,14 @@ paths:
       - BearerAuth: []
       summary: Get search analytics
       tags:
-      - Search Analytics
+      - Admin
   /admin/search/history:
     get:
-      description: Get paginated list of recent search queries (admin only)
+      description: Retrieve recent search queries
       parameters:
-      - description: Max results (default 20, max 100)
+      - description: 'Maximum number of searches to return (default: 50, max: 100)'
         in: query
         name: limit
-        type: integer
-      - description: Pagination offset
-        in: query
-        name: offset
         type: integer
       produces:
       - application/json
@@ -1715,7 +1692,9 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.SearchHistoryResponse'
+            items:
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchQuery'
+            type: array
         "401":
           description: Unauthorized
           schema:
@@ -1730,15 +1709,15 @@ paths:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: List search history
+      summary: Get search history
       tags:
-      - Search Analytics
+      - Admin
   /admin/search/metrics:
     get:
-      description: Get time-series search metrics grouped by hour or day (admin only)
+      description: Compute search performance metrics for a time period
       parameters:
-      - description: 'Time period: hourly (last 24h) or daily (last 30d). Default:
-          hourly'
+      - default: 24h
+        description: Time period (24h, 7d, 30d)
         in: query
         name: period
         type: string
@@ -1748,7 +1727,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchMetrics'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchMetrics'
         "401":
           description: Unauthorized
           schema:
@@ -1765,7 +1744,7 @@ paths:
       - BearerAuth: []
       summary: Get search metrics
       tags:
-      - Search Analytics
+      - Admin
   /admin/stats:
     get:
       description: Get system-wide statistics including document counts, chunk counts,
@@ -1795,159 +1774,6 @@ paths:
       summary: Get admin statistics
       tags:
       - Admin
-  /admin/vespa:
-    delete:
-      description: Remove the Vespa connection configuration (admin only). This does
-        NOT delete documents from Vespa.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Vespa not connected
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Disconnect Vespa
-      tags:
-      - Vespa
-  /admin/vespa/connect:
-    post:
-      consumes:
-      - application/json
-      description: Connect to a Vespa cluster and deploy the search schema (admin
-        only). Use dev_mode=true for local development, dev_mode=false for production
-        clusters.
-      parameters:
-      - description: Vespa connection settings
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ConnectVespaRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.VespaStatus'
-        "400":
-          description: Invalid request
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Connection failed
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Connect to Vespa
-      tags:
-      - Vespa
-  /admin/vespa/health:
-    get:
-      description: Check if the Vespa cluster is healthy (admin only)
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "503":
-          description: Vespa unhealthy
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Vespa health check
-      tags:
-      - Vespa
-  /admin/vespa/metrics:
-    get:
-      description: Returns comprehensive cluster metrics including document counts,
-        storage usage, query performance, and feed metrics per content node (admin
-        only)
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.VespaMetrics'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Get Vespa cluster metrics
-      tags:
-      - Vespa
-  /admin/vespa/status:
-    get:
-      description: Get the current Vespa connection and schema status (admin only)
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.VespaStatus'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Get Vespa status
-      tags:
-      - Vespa
   /auth/login:
     post:
       consumes:
@@ -1959,14 +1785,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.LoginRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.LoginRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.LoginResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.LoginResponse'
         "400":
           description: Invalid request body
           schema:
@@ -2008,14 +1834,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.RefreshRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.RefreshRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.LoginResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.LoginResponse'
         "400":
           description: Invalid request body
           schema:
@@ -2027,6 +1853,372 @@ paths:
       summary: Refresh token
       tags:
       - Authentication
+  /capabilities:
+    get:
+      description: Returns information about what features are available based on
+        environment configuration
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CapabilitiesResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      summary: Get capabilities
+      tags:
+      - Capabilities
+  /capability-preferences:
+    get:
+      description: Get capability preferences for the current team
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.CapabilityPreferences'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get capability preferences
+      tags:
+      - Capabilities
+    put:
+      consumes:
+      - application/json
+      description: Update capability preferences for the current team
+      parameters:
+      - description: Capability preferences
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateCapabilityPreferencesRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.CapabilityPreferences'
+        "400":
+          description: Invalid request body
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update capability preferences
+      tags:
+      - Capabilities
+  /connections:
+    get:
+      description: Get all connector connections. Connections represent authenticated
+        connections to external data sources (OAuth tokens, API keys, etc.).
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ConnectionSummary'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List connections
+      tags:
+      - Connections
+    post:
+      consumes:
+      - application/json
+      description: Create a new installation for non-OAuth connectors (API key, path-based).
+        Used for connectors like localfs.
+      parameters:
+      - description: Installation configuration
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateConnectionRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ConnectionSummary'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create connection
+      tags:
+      - Connections
+  /connections/{id}:
+    delete:
+      description: Delete a connector installation. Cannot delete installations that
+        are in use by sources.
+      parameters:
+      - description: Installation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
+        "400":
+          description: Missing installation ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "409":
+          description: Connection in use by sources
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete connection
+      tags:
+      - Connections
+    get:
+      description: Get a connector installation by ID. Returns installation metadata
+        without secrets.
+      parameters:
+      - description: Installation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.ConnectionSummary'
+        "400":
+          description: Missing installation ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get connection
+      tags:
+      - Connections
+  /connections/{id}/containers:
+    get:
+      description: List available containers (repositories, drives, spaces, etc.)
+        for an installation. Use this to populate a resource picker UI for selecting
+        which containers to index.
+      parameters:
+      - description: Installation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Pagination cursor from previous response
+        in: query
+        name: cursor
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.ListContainersResponse'
+        "400":
+          description: Missing installation ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: List containers
+      tags:
+      - Connections
+  /connections/{id}/sources:
+    get:
+      description: List all sources using a specific connection. This shows which
+        sources depend on this connection.
+      parameters:
+      - description: Connection ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Source'
+            type: array
+        "400":
+          description: Missing connection ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get connection sources
+      tags:
+      - Connections
+  /connections/{id}/test:
+    post:
+      description: Test if an installation's credentials are still valid. This attempts
+        to authenticate with the external service.
+      parameters:
+      - description: Installation ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
+        "400":
+          description: Missing installation ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Connection not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "503":
+          description: Credentials invalid or service unavailable
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Test connection
+      tags:
+      - Connections
   /documents/{id}:
     get:
       description: Get a document by ID with all its chunks
@@ -2042,7 +2234,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.DocumentWithChunks'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.DocumentWithChunks'
         "400":
           description: Missing document ID
           schema:
@@ -2080,7 +2272,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.DocumentWithChunks'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.DocumentWithChunks'
         "400":
           description: Missing document ID
           schema:
@@ -2104,7 +2296,8 @@ paths:
       - Documents
   /documents/{id}/open:
     get:
-      description: Get the canonical URL to view this document in the source system
+      description: Get the external URL for a document. This returns the original
+        URL in the source system (e.g., GitHub, Notion, etc.).
       parameters:
       - description: Document ID
         in: path
@@ -2115,11 +2308,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: URL response
+          description: OK
           schema:
-            additionalProperties:
-              type: string
-            type: object
+            $ref: '#/definitions/internal_adapters_driving_http.DocumentURLResponse'
         "400":
           description: Missing document ID
           schema:
@@ -2138,7 +2329,7 @@ paths:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: Get document URL
+      summary: Open document
       tags:
       - Documents
   /health:
@@ -2155,212 +2346,6 @@ paths:
       summary: Health check
       tags:
       - Health
-  /installations:
-    get:
-      description: Get all connector installations. Installations represent authenticated
-        connections to external data sources (OAuth tokens, API keys, etc.).
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.InstallationSummary'
-            type: array
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: List installations
-      tags:
-      - Installations
-  /installations/{id}:
-    delete:
-      description: Delete a connector installation. Cannot delete installations that
-        are in use by sources.
-      parameters:
-      - description: Installation ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "400":
-          description: Missing installation ID
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Installation not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "409":
-          description: Installation in use by sources
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Delete installation
-      tags:
-      - Installations
-    get:
-      description: Get a connector installation by ID. Returns installation metadata
-        without secrets.
-      parameters:
-      - description: Installation ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.InstallationSummary'
-        "400":
-          description: Missing installation ID
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Installation not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Get installation
-      tags:
-      - Installations
-  /installations/{id}/containers:
-    get:
-      description: List available containers (repositories, drives, spaces, etc.)
-        for an installation. Use this to populate a resource picker UI for selecting
-        which containers to index.
-      parameters:
-      - description: Installation ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Pagination cursor from previous response
-        in: query
-        name: cursor
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ListContainersResponse'
-        "400":
-          description: Missing installation ID
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Installation not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: List containers
-      tags:
-      - Installations
-  /installations/{id}/test:
-    post:
-      description: Test if an installation's credentials are still valid. This attempts
-        to authenticate with the external service.
-      parameters:
-      - description: Installation ID
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "400":
-          description: Missing installation ID
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Installation not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "503":
-          description: Credentials invalid or service unavailable
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Test installation
-      tags:
-      - Installations
   /me:
     get:
       description: Get the currently authenticated user's profile
@@ -2370,7 +2355,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
         "401":
           description: Unauthorized
           schema:
@@ -2403,14 +2388,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AuthorizeRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AuthorizeRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AuthorizeResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AuthorizeResponse'
         "400":
           description: Invalid request or provider type
           schema:
@@ -2436,61 +2421,12 @@ paths:
       summary: Start OAuth authorization
       tags:
       - OAuth
-  /oauth/{provider}/exchange:
-    post:
-      consumes:
-      - application/json
-      description: Called by UI after receiving OAuth callback. Exchanges authorization
-        code for tokens and creates an installation. This endpoint is replay-safe
-        - if the state was already consumed, it returns an error.
-      parameters:
-      - description: Provider type (github, slack, etc.)
-        in: path
-        name: provider
-        required: true
-        type: string
-      - description: Code and state from OAuth callback
-        in: body
-        name: body
-        required: true
-        schema:
-          $ref: '#/definitions/internal_adapters_driving_http.ExchangeRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.CallbackResponse'
-        "400":
-          description: Invalid request or state
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Provider not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Exchange failed
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Exchange OAuth code for tokens
-      tags:
-      - OAuth
   /oauth/callback:
     get:
-      description: Receives OAuth callback from provider, exchanges code for tokens,
-        and redirects browser to UI.
+      description: Handle the OAuth callback from an external provider. This endpoint
+        is called by the provider after the user authorizes the application. It exchanges
+        the authorization code for tokens and creates a connector installation, then
+        redirects to the UI.
       parameters:
       - description: Authorization code from provider
         in: query
@@ -2511,7 +2447,7 @@ paths:
         type: string
       responses:
         "302":
-          description: Redirect to UI with installation_id or error
+          description: Redirect to UI oauth/complete page with error
       summary: OAuth callback
       tags:
       - OAuth
@@ -2526,7 +2462,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ProviderListItem'
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.ProviderListItem'
             type: array
         "401":
           description: Unauthorized
@@ -2543,135 +2479,6 @@ paths:
       security:
       - BearerAuth: []
       summary: List providers
-      tags:
-      - Providers
-  /providers/{type}/config:
-    delete:
-      description: Delete OAuth app configuration for a provider type (admin only).
-        This will prevent new installations for this provider.
-      parameters:
-      - description: Provider type (e.g., github, slack, notion)
-        in: path
-        name: type
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "400":
-          description: Missing provider type
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Provider not configured
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Delete provider config
-      tags:
-      - Providers
-    get:
-      description: Get OAuth app configuration for a provider type (admin only). Secrets
-        are not exposed.
-      parameters:
-      - description: Provider type (e.g., github, slack, notion)
-        in: path
-        name: type
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ProviderConfigResponse'
-        "400":
-          description: Missing provider type
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Provider not configured
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Get provider config
-      tags:
-      - Providers
-    post:
-      consumes:
-      - application/json
-      description: Create or update OAuth app configuration for a provider type (admin
-        only). This configures the OAuth client credentials that will be used for
-        all installations of this provider.
-      parameters:
-      - description: Provider type (e.g., github, slack, notion)
-        in: path
-        name: type
-        required: true
-        type: string
-      - description: Provider configuration
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.SaveProviderConfigRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.ProviderConfigResponse'
-        "400":
-          description: Invalid input
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Save provider config
       tags:
       - Providers
   /ready:
@@ -2707,7 +2514,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SearchResult'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SearchResult'
         "400":
           description: Invalid request or missing query
           schema:
@@ -2734,7 +2541,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Settings'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Settings'
         "401":
           description: Unauthorized
           schema:
@@ -2762,14 +2569,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateSettingsRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateSettingsRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Settings'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Settings'
         "400":
           description: Invalid request
           schema:
@@ -2793,7 +2600,8 @@ paths:
       - Settings
   /settings/ai:
     get:
-      description: Get AI provider configuration (admin only). API keys are masked.
+      description: Get AI provider configuration (admin only). Shows provider/model
+        choice and credential availability from environment.
       produces:
       - application/json
       responses:
@@ -2829,14 +2637,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateAISettingsRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateAISettingsRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AISettingsStatus'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AISettingsStatus'
         "400":
           description: Invalid configuration or unsupported provider
           schema:
@@ -2858,92 +2666,40 @@ paths:
       summary: Update AI settings
       tags:
       - AI Settings
-  /settings/ai/embedding:
-    delete:
-      description: Remove the embedding provider configuration (admin only). This
-        will disable semantic search.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: No embedding provider configured
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Delete embedding provider
-      tags:
-      - AI Settings
-  /settings/ai/llm:
-    delete:
-      description: Remove the LLM provider configuration (admin only). This will disable
-        LLM-powered features.
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: No LLM provider configured
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Delete LLM provider
-      tags:
-      - AI Settings
   /settings/ai/providers:
     get:
-      description: Get list of implemented AI providers and their available models
+      description: Returns metadata about available AI providers and their models.
+        Used for populating provider/model selection dropdowns in the UI.
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/internal_adapters_driving_http.aiProvidersResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AIProvidersResponse'
         "401":
           description: Unauthorized
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: Get available AI providers
+      summary: Get AI providers
       tags:
       - AI Settings
   /settings/ai/status:
     get:
-      description: Get the current status of AI services including embedding, LLM,
-        and Vespa connection status
+      description: Get the current status of AI services including embedding and LLM
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.AISettingsStatus'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.AISettingsStatus'
         "401":
           description: Unauthorized
           schema:
@@ -2996,14 +2752,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.SetupRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.SetupResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupResponse'
         "400":
           description: Invalid input
           schema:
@@ -3021,15 +2777,19 @@ paths:
       - Setup
   /setup/status:
     get:
-      description: Check if initial setup is complete. Used by UI to determine routing
-        after OAuth.
+      description: Returns the current setup state for FTUE (First-Time User Experience)
+        flow. This endpoint is public and does not require authentication.
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/internal_adapters_driving_http.SetupStatusResponse'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.SetupStatusResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       summary: Get setup status
       tags:
       - Setup
@@ -3043,7 +2803,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SourceSummary'
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SourceSummary'
             type: array
         "401":
           description: Unauthorized
@@ -3068,14 +2828,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.CreateSourceRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateSourceRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Source'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Source'
         "400":
           description: Invalid input
           schema:
@@ -3157,7 +2917,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Source'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Source'
         "400":
           description: Missing source ID
           schema:
@@ -3195,14 +2955,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateSourceRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateSourceRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.Source'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.Source'
         "400":
           description: Invalid request
           schema:
@@ -3226,6 +2986,56 @@ paths:
       security:
       - BearerAuth: []
       summary: Update source
+      tags:
+      - Sources
+  /sources/{id}/containers:
+    put:
+      consumes:
+      - application/json
+      description: Update which containers (repos, drives, spaces) a source should
+        index. Pass an empty array to index all available containers.
+      parameters:
+      - description: Source ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Container containers
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/internal_adapters_driving_http.UpdateContainersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "403":
+          description: Forbidden - admin only
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "404":
+          description: Source not found
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update source containers
       tags:
       - Sources
   /sources/{id}/disable:
@@ -3358,56 +3168,6 @@ paths:
       summary: Enable source
       tags:
       - Sources
-  /sources/{id}/selection:
-    put:
-      consumes:
-      - application/json
-      description: Update which containers (repos, drives, spaces) a source should
-        index. Pass an empty array to index all available containers.
-      parameters:
-      - description: Source ID
-        in: path
-        name: id
-        required: true
-        type: string
-      - description: Container selection
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/internal_adapters_driving_http.UpdateSelectionRequest'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
-        "400":
-          description: Invalid request
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "403":
-          description: Forbidden - admin only
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "404":
-          description: Source not found
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-        "500":
-          description: Internal server error
-          schema:
-            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
-      security:
-      - BearerAuth: []
-      summary: Update source selection
-      tags:
-      - Sources
   /sources/{id}/sync:
     get:
       description: Get the current sync state and statistics for a specific source.
@@ -3425,7 +3185,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SyncState'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncState'
         "400":
           description: Missing source ID
           schema:
@@ -3494,7 +3254,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.SyncState'
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.SyncState'
             type: array
         "401":
           description: Unauthorized
@@ -3523,7 +3283,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+              $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
             type: array
         "401":
           description: Unauthorized
@@ -3552,14 +3312,14 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.CreateUserRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.CreateUserRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
         "400":
           description: Invalid input
           schema:
@@ -3627,7 +3387,7 @@ paths:
       tags:
       - Users
     get:
-      description: Get a user's details by ID (admin only)
+      description: Get a user by ID (admin only)
       parameters:
       - description: User ID
         in: path
@@ -3640,7 +3400,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
+        "400":
+          description: Missing user ID
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
         "401":
           description: Unauthorized
           schema:
@@ -3653,9 +3417,13 @@ paths:
           description: User not found
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
       security:
       - BearerAuth: []
-      summary: Get user by ID
+      summary: Get user
       tags:
       - Users
     put:
@@ -3668,21 +3436,21 @@ paths:
         name: id
         required: true
         type: string
-      - description: Update user request
+      - description: User update request
         in: body
-        name: body
+        name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_ports_driving.UpdateUserRequest'
+          $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_ports_driving.UpdateUserRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_custodia-labs_sercha-core_internal_core_domain.UserSummary'
+            $ref: '#/definitions/github_com_sercha-oss_sercha-core_internal_core_domain.UserSummary'
         "400":
-          description: Invalid request
+          description: Invalid request body
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
         "401":
@@ -3710,7 +3478,8 @@ paths:
     post:
       consumes:
       - application/json
-      description: Reset a user's password (admin only)
+      description: Reset a user's password (admin only). This invalidates all existing
+        sessions for the user.
       parameters:
       - description: User ID
         in: path
@@ -3719,10 +3488,10 @@ paths:
         type: string
       - description: New password
         in: body
-        name: body
+        name: request
         required: true
         schema:
-          type: object
+          $ref: '#/definitions/internal_adapters_driving_http.ResetPasswordRequest'
       produces:
       - application/json
       responses:
@@ -3731,7 +3500,7 @@ paths:
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.StatusResponse'
         "400":
-          description: Invalid request
+          description: Invalid request or missing password
           schema:
             $ref: '#/definitions/internal_adapters_driving_http.ErrorResponse'
         "401":

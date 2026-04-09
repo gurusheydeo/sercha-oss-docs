@@ -29,8 +29,10 @@ services:
     environment:
       DATABASE_URL: postgres://sercha:password@postgres:5432/sercha
       REDIS_URL: redis://redis:6379
-      VESPA_URL: http://vespa:19071
+      OPENSEARCH_URL: http://opensearch:9200
+      PGVECTOR_URL: postgres://sercha:password@postgres:5432/sercha
       JWT_SECRET: ${JWT_SECRET}
+      MASTER_KEY: ${MASTER_KEY}
     ports:
       - "8080:8080"
 ```
@@ -69,8 +71,10 @@ services:
       PORT: 8080
       DATABASE_URL: postgres://sercha:password@postgres:5432/sercha
       REDIS_URL: redis://redis:6379
-      VESPA_URL: http://vespa:19071
+      OPENSEARCH_URL: http://opensearch:9200
+      PGVECTOR_URL: postgres://sercha:password@postgres:5432/sercha
       JWT_SECRET: ${JWT_SECRET}
+      MASTER_KEY: ${MASTER_KEY}
       DB_MAX_OPEN_CONNS: 10
     deploy:
       replicas: 3
@@ -83,8 +87,10 @@ services:
       RUN_MODE: worker
       DATABASE_URL: postgres://sercha:password@postgres:5432/sercha
       REDIS_URL: redis://redis:6379
-      VESPA_URL: http://vespa:19071
+      OPENSEARCH_URL: http://opensearch:9200
+      PGVECTOR_URL: postgres://sercha:password@postgres:5432/sercha
       JWT_SECRET: ${JWT_SECRET}
+      MASTER_KEY: ${MASTER_KEY}
       WORKER_CONCURRENCY: 4
       SCHEDULER_ENABLED: "true"
       SCHEDULER_LOCK_REQUIRED: "true"

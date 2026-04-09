@@ -23,7 +23,7 @@ Embedding generation is a **driven port** in the hexagonal architecture. The cor
 ┌─────────────────────────────────────────────────┐
 │                  Core Domain                     │
 │  ┌──────────────────┐    ┌──────────────────┐   │
-│  │ EmbeddingService │    │      Vespa       │   │
+│  │ EmbeddingService │    │     pgvector     │   │
 │  │  (generates)     │───▶│ (stores+searches)│   │
 │  └──────────────────┘    └──────────────────┘   │
 └─────────────────────────────────────────────────┘
@@ -37,7 +37,8 @@ Embedding generation is a **driven port** in the hexagonal architecture. The cor
 
 **Key distinction:**
 - `EmbeddingService` **generates** vectors from text (inference)
-- Vespa **stores and searches** vectors (integrated with BM25)
+- pgvector **stores and searches** vectors (PostgreSQL extension)
+- OpenSearch provides **BM25 text search** (separate from vectors)
 
 This separation allows different embedding providers with the same search backend.
 
@@ -56,26 +57,48 @@ When no embedding service is configured:
 | Ollama | nomic-embed-text, all-minilm | Local inference |
 | None | — | Graceful degradation |
 
-<!-- TODO: Add Core-specific adapter documentation and configuration examples -->
-
 ## Dimension Matching
 
-The embedding model's dimensions **must match** the Vespa schema configuration:
-- OpenAI `text-embedding-3-small` → 1536 dimensions
+The embedding model's dimensions **must match** the pgvector configuration (`PGVECTOR_DIMENSIONS`):
+- OpenAI `text-embedding-3-small` → 1536 dimensions (default)
 - Ollama `nomic-embed-text` → 768 dimensions
 - Changing models requires re-indexing
 
 ## Configuration
 
-<!-- TODO: Add detailed Core configuration examples -->
+### Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `EMBEDDING_PROVIDER` | - | Provider: `openai`, `ollama` |
+| `EMBEDDING_API_KEY` | - | API key for the provider |
+| `EMBEDDING_MODEL` | - | Model name |
+| `EMBEDDING_BASE_URL` | - | Custom API endpoint (optional) |
+| `PGVECTOR_DIMENSIONS` | `1536` | Vector dimensions (must match model) |
+
+### OpenAI Configuration
 
 ```bash
 EMBEDDING_PROVIDER=openai
 EMBEDDING_API_KEY=sk-...
 EMBEDDING_MODEL=text-embedding-3-small
+PGVECTOR_DIMENSIONS=1536
+```
 
-# Or for local inference
+### Ollama (Local) Configuration
+
+```bash
 EMBEDDING_PROVIDER=ollama
 EMBEDDING_BASE_URL=http://localhost:11434
 EMBEDDING_MODEL=nomic-embed-text
+PGVECTOR_DIMENSIONS=768
 ```
+
+## Key Source Files
+
+| File | Description |
+|------|-------------|
+| `internal/core/ports/embedding.go` | Embedding service port interface |
+| `internal/core/services/embedding.go` | Embedding orchestration service |
+| `internal/adapters/driven/openai/embedding.go` | OpenAI adapter |
+| `internal/adapters/driven/ollama/embedding.go` | Ollama adapter |

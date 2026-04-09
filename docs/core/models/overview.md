@@ -42,18 +42,48 @@ Sercha Core degrades gracefully - core search functionality is always available.
 
 ## Configuration
 
-<!-- TODO: Add Core-specific configuration examples (environment variables, API configuration) -->
+AI services are configured via environment variables or the Admin API.
 
-AI services are configured via environment variables:
+### Environment Variables
 
 ```bash
-# Embedding
+# Embedding Service
 EMBEDDING_PROVIDER=openai    # openai | ollama | (empty for disabled)
 EMBEDDING_API_KEY=sk-...
 EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_BASE_URL=         # Optional: custom endpoint
 
-# LLM
+# LLM Service
 LLM_PROVIDER=openai          # openai | anthropic | ollama | (empty for disabled)
 LLM_API_KEY=sk-...
 LLM_MODEL=gpt-4o-mini
+LLM_BASE_URL=               # Optional: custom endpoint
 ```
+
+### Admin API
+
+Configure AI settings at runtime:
+
+```bash
+curl -X PUT http://localhost:8080/api/v1/settings/ai \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "embedding": {
+      "provider": "openai",
+      "model": "text-embedding-3-small"
+    },
+    "llm": {
+      "provider": "openai",
+      "model": "gpt-4o-mini"
+    }
+  }'
+```
+
+API keys are stored securely and managed separately via the secrets endpoint.
+
+## Next Steps
+
+- [Embedding Models](./embedding-models/overview) - Configure vector embeddings
+- [Large Language Models](./large-language-models/overview) - Configure LLM integration
+- [Capabilities](/core/architecture/capabilities) - Understanding search mode selection

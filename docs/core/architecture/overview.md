@@ -14,7 +14,7 @@ Sercha Core uses **hexagonal architecture** (also known as ports and adapters) t
 Sercha Core needs to:
 
 1. **Support multiple data sources** - Google Drive, Dropbox, GitHub, local files, etc.
-2. **Support multiple search backends** - Vespa today, potentially others tomorrow
+2. **Support multiple search backends** - OpenSearch for BM25, pgvector for semantic search
 3. **Support multiple embedding providers** - OpenAI, Ollama, or none at all
 4. **Run in multiple modes** - API server, background worker, or combined
 
@@ -36,8 +36,8 @@ graph TB
     end
 
     subgraph Driven["Driven Adapters (Output)"]
-        PG[PostgreSQL]
-        Vespa[Vespa Search]
+        PG[PostgreSQL + pgvector]
+        OS[OpenSearch]
     end
 
     subgraph Optional["Optional Adapters"]
@@ -51,7 +51,7 @@ graph TB
     Services --> Domain
     Services --> Ports
     Ports --> PG
-    Ports --> Vespa
+    Ports --> OS
     Ports -.-> Redis
     Ports -.-> Embed
     Ports -.-> LLM
@@ -88,14 +88,20 @@ These are called BY the core domain:
 | Adapter | Purpose |
 |---------|---------|
 | PostgreSQL | User, document, source metadata, sessions, job queue |
-| Vespa | Search engine (BM25 + vector) |
 
-**Optional:**
+**Optional (Search Backends):**
+
+| Adapter | Purpose |
+|---------|---------|
+| OpenSearch | BM25 text search |
+| pgvector | Semantic vector search (PostgreSQL extension) |
+
+**Optional (Infrastructure):**
 
 | Adapter | Purpose |
 |---------|---------|
 | Redis | Session caching, job queue (improves performance at scale) |
-| Embedding API | Semantic search - find documents by meaning |
+| Embedding API | Generate embeddings for semantic search |
 | LLM API | Query expansion, summarization |
 
 See [AI Models](../models/overview) for embedding and LLM configuration.
