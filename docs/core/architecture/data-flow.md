@@ -20,7 +20,8 @@ sequenceDiagram
     participant Auth as AuthMiddleware
     participant Search as SearchService
     participant Embed as EmbeddingService
-    participant Vespa as Vespa
+    participant OS as OpenSearch
+    participant PGV as pgvector
 
     Client->>HTTP: POST /api/v1/search
     HTTP->>Auth: Validate token
@@ -30,12 +31,17 @@ sequenceDiagram
     alt Hybrid Mode
         Search->>Embed: GenerateEmbedding(query)
         Embed-->>Search: []float32
-        Search->>Vespa: HybridSearch(query, embedding)
+        Search->>OS: BM25Search(query)
+        Search->>PGV: VectorSearch(embedding)
+        Search->>Search: Merge & rank results
     else Text-Only Mode
-        Search->>Vespa: TextSearch(query)
+        Search->>OS: BM25Search(query)
+    else Semantic-Only Mode
+        Search->>Embed: GenerateEmbedding(query)
+        Embed-->>Search: []float32
+        Search->>PGV: VectorSearch(embedding)
     end
 
-    Vespa-->>Search: []Chunk
     Search-->>HTTP: SearchResult
     HTTP-->>Client: JSON response
 ```
@@ -44,9 +50,9 @@ sequenceDiagram
 
 | Mode | When Used | Query Path |
 |------|-----------|------------|
-| `hybrid` | Embedding service available | BM25 + Vector ANN |
-| `text_only` | No embedding or fallback | BM25 only |
-| `semantic_only` | Explicit request | Vector ANN only |
+| `hybrid` | Both backends + embeddings available | OpenSearch BM25 + pgvector ANN |
+| `text_only` | No embedding service or explicit | OpenSearch BM25 only |
+| `semantic_only` | Explicit request with embeddings | pgvector ANN only |
 
 ## Sync Flow
 
@@ -61,7 +67,8 @@ sequenceDiagram
     participant Chunk as ChunkService
     participant Index as IndexService
     participant Store as DocumentStore
-    participant Vespa as Vespa
+    participant OS as OpenSearch
+    participant PGV as pgvector
 
     Scheduler->>Worker: Trigger sync job
     Worker->>Sync: SyncSource(sourceID)
@@ -73,7 +80,8 @@ sequenceDiagram
         Chunk-->>Sync: []Chunk
         Sync->>Store: SaveDocument(doc)
         Sync->>Index: IndexChunks(chunks)
-        Index->>Vespa: Index(chunks)
+        Index->>OS: IndexText(chunks)
+        Index->>PGV: IndexVectors(embeddings)
     end
 
     Sync-->>Worker: SyncResult

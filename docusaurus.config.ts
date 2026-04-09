@@ -20,7 +20,7 @@ const config: Config = {
   baseUrl: '/',
   trailingSlash: false,
 
-  organizationName: 'custodia-labs',
+  organizationName: 'sercha-oss',
   projectName: 'sercha-oss-docs',
 
   onBrokenLinks: 'throw',
@@ -100,7 +100,7 @@ const config: Config = {
             xslt: true,
           },
           editUrl:
-            'https://github.com/custodia-labs/sercha-oss-docs/tree/main/',
+            'https://github.com/sercha-oss/sercha-oss-docs/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -134,7 +134,7 @@ const config: Config = {
         },
         {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/custodia-labs/sercha-core',
+          href: 'https://github.com/sercha-oss/sercha-core',
           label: 'GitHub',
           position: 'right',
         },
@@ -165,11 +165,11 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/custodia-labs/sercha-core',
+              href: 'https://github.com/sercha-oss/sercha-core',
             },
             {
               label: 'Report Issues',
-              href: 'https://github.com/custodia-labs/sercha-core/issues',
+              href: 'https://github.com/sercha-oss/sercha-core/issues',
             },
           ],
         },

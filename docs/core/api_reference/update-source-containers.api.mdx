@@ -1,0 +1,71 @@
+---
+id: update-source-containers
+title: "Update source containers"
+description: "Update which containers (repos, drives, spaces) a source should index. Pass an empty array to index all available containers."
+sidebar_label: "Update source containers"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVV81v2zYU/1cInVrAtpKuAwrf0iwDsg5rUCfYIcnhWXq22FCkRlJOPMH/e98jpViK7K7oZcglocj3+XufbpIcXWZl5aXRyTy5qXLwKB4LmRUiM9qD1GideGOxMm4icis3SP9dBRm6twKEM7XNULjC1CoXUuf4NBNX4JwALbCs/FaAtbAV3sRXAUoJ2IBUsFTYUzJLJkkFFkr09JXMb5sXxi2iqsvfiFDyRQW+oLMmFvqSOZ0t/lNLi3ky97bGSeKyAktI5k3itxVTOW+lXie73X0kRuc/mnzLFGwKas9HqColM2DF6VfH2pueqKFZX6IUdrA+At9BmNhdayq0XqLr9EeGsZLzvTDphC9QKEk6zaqvpoN4dqcvAvKBpkTQ7gewlx7LoHloFcE6Rm+SUJSAnA14QJ5LthPU1YB1xNRemOVXzDxfxNAdpRxH7YCM9iJk2SEKvjoCZg+BUe7s+MJVRrvozLuTk3FYPn8ivp/Mm4UsKwqC8+BrJzpdo6yI73zCJ2AOdu0hmfw3NMHz94fMvtQbUDIXbQH8vA9nV5cCrTX2uP3heWi+HKoXSy7AH3fodGzHjYbaF8bKfzF/Zd78Mrbjd2OXMs9Ri6mAvJRaGK22r8yv9wcyPjZBbbxYmVq/rkj9eriQaFZR3xMO7Yb6SVT6etyiS4dZbaXfhoH7EcGiPaNaos97npEe1jyL29i55D60/sLkPH9rH2Y2UydpHHEubWS+SweNNYITR3ptFREX3lfzNFUmA1UY5+cfTj6cplDJdHNKPb1P5o7T3e+tXzCiEaG+Dy8B/uPvaxHfaVg+oJ4JqrUS/FzctXyiCQ+7u6TbMgqEHO1+zzhrO00I6R5nMuoTxgHEYf6y3y0uukgNR/xtnK1dgAYj9Xk07l9fhPN+x+atzLPULGRby7VAmxUgPi8WxDnEci19US9nmSlTF6imxrnumBmLqXSOTE9GY/OKlj/IttOVyWqHuUBO/spKR0OMsKOVh/J3Jlrd5yRKUO5uJEkRq1qpqccnT2thTuQlaC+zjg8yS0aILWUQj2RN6UnyGYt2cQoLCpURckns3TyjNZRWoXezk4Gb5OXj4+MMwuvM2HXasrr0z8vzi78WF1NimRW+VGGBkF71QAuGkyckkrM2+n5KKoiUlmBPpvdMaDfmdr8bpP0Avd56+b9v2W0qcTjSStE9uxbga9pqvk1a3Il6LrtG3XpGZce1yFRNswSHN1btdnxNKW+5kdBxA1ay6rjHS8dnyvYVKIffgebNl3YJeyv66/5Bi7vC09ztqAXW/EXHByrD8HMgFElbvmxGfDiPyqbXzL5nHPVpbkOR4yzLsPLfpe23xauba6Jdtr8qSpMzi4VHXjHpb7DRBN9Dvwp3TaJAr2tYM20UyZ0E2i627zFs0aQ7sFMHUXjZo6If/Je9OsjSNLGDUSQ7+vh0lOO5MbaAMwxk9TfTd/uI
+sidebar_class_name: "put api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update source containers"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/sources/{id}/containers"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Update which containers (repos, drives, spaces) a source should index. Pass an empty array to index all available containers.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"description":"Source ID","in":"path","name":"id","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"description":"Request to update which containers a source should index","properties":{"containers":{"description":"Containers is the list of containers to index.\nEmpty list means index all available containers.","items":{"properties":{"id":{"type":"string"},"metadata":{"additionalProperties":{"type":"string"},"type":"object"},"name":{"type":"string"},"type":{"type":"string"}},"type":"object"},"type":"array"}},"type":"object"}}},"description":"Container containers","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"description":"Simple status response","properties":{"status":{"example":"ok","type":"string"}},"type":"object"}}}},"400":{"description":"Invalid request","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"403":{"description":"Forbidden - admin only","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"404":{"description":"Source not found","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

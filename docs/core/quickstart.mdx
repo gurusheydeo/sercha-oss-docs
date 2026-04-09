@@ -17,7 +17,7 @@ This tutorial walks you through setting up Sercha Core locally, connecting a Git
 Before starting, ensure you have:
 
 - **Docker and Docker Compose** installed ([Get Docker](https://docs.docker.com/get-docker/))
-- **4GB RAM available** for the Vespa search engine
+- **4GB RAM available** for the search infrastructure
 - **A GitHub account** with at least one repository to index
 
 ## What We'll Build
@@ -28,8 +28,8 @@ Sercha Core consists of several components working together:
 |-----------|---------|
 | **API Server** | Handles authentication, source management, and search queries |
 | **Worker** | Processes sync jobs and indexes content |
-| **PostgreSQL** | Stores metadata, users, and source configurations |
-| **Vespa** | Powers the search engine with full-text and vector search |
+| **PostgreSQL + pgvector** | Stores metadata, users, and powers vector search |
+| **OpenSearch** | Powers BM25 full-text search |
 
 The quickstart runs all components in a single Docker Compose stack.
 
@@ -42,29 +42,21 @@ First, download the Docker Compose configuration and start the services:
 
 
 ```bash
-curl -O https://raw.githubusercontent.com/custodia-labs/sercha-core/main/examples/quickstart/docker-compose.yml
+curl -O https://raw.githubusercontent.com/sercha-oss/sercha-core/main/examples/quickstart/docker-compose.yml
 docker compose up -d
 ```
 
-:::tip Quick Setup Script
-Want to skip the manual steps? Download and run the quickstart script:
-
-```bash
-curl -O https://raw.githubusercontent.com/custodia-labs/sercha-core/main/examples/quickstart/quickstart.sh
-chmod +x quickstart.sh
-./quickstart.sh
-```
-
-The script automates all the steps below. Continue reading to understand what each step does.
+:::tip Quick Setup
+The quickstart docker-compose includes everything you need. The services will be ready in about 30-60 seconds.
 :::
 
-Vespa requires about 60-90 seconds to initialize on first start. You can monitor the startup progress:
+OpenSearch requires about 30-60 seconds to initialize on first start. You can monitor the startup progress:
 
 ```bash
-docker compose logs -f vespa
+docker compose logs -f opensearch
 ```
 
-Once you see `Container is ready`, the services are running. Verify by checking the health endpoint:
+Once you see `started`, the services are running. Verify by checking the health endpoint:
 
 ```bash
 curl http://localhost:8080/health
@@ -78,7 +70,7 @@ You should see a response showing all components are healthy:
   "components": {
     "postgres": { "status": "healthy" },
     "server": { "status": "healthy" },
-    "vespa": { "status": "healthy" }
+    "opensearch": { "status": "healthy" }
   }
 }
 ```
@@ -143,26 +135,26 @@ Copy the `token` value. For the remaining commands, set it as an environment var
 export TOKEN="eyJhbGciOiJIUzI1NiIs..."
 ```
 
-## Step 4: Initialize the Search Schema
+## Step 4: Verify Search Backend
 
-Sercha uses Vespa as its search backend. Before indexing content, you need to deploy the search schema. The `dev_mode` parameter deploys the full application package for local development.
+Sercha uses OpenSearch for BM25 text search and pgvector for semantic search. The search backends are automatically configured when the services start. Verify the capabilities are available:
 
-[`POST /api/v1/admin/vespa/connect`](./api_reference/connect-to-vespa)
+[`GET /api/v1/capabilities`](./api_reference/get-capabilities)
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/admin/vespa/connect \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"dev_mode": true}'
+curl http://localhost:8080/api/v1/capabilities \
+  -H "Authorization: Bearer $TOKEN"
 ```
 
 Response:
 
 ```json
 {
-  "status": "connected",
-  "endpoint": "http://vespa:19071",
-  "schema_deployed": true
+  "search_modes": ["text_only", "semantic_only", "hybrid"],
+  "backends": {
+    "bm25": { "enabled": true, "provider": "opensearch" },
+    "vector": { "enabled": true, "provider": "pgvector" }
+  }
 }
 ```
 
@@ -348,7 +340,7 @@ Response:
 }
 ```
 
-The worker will now fetch files from your repository, extract text content, and index it in Vespa. For a small repository, this takes about 10-30 seconds. You can check the sync status:
+The worker will now fetch files from your repository, extract text content, and index it in OpenSearch and pgvector. For a small repository, this takes about 10-30 seconds. You can check the sync status:
 
 [`GET /api/v1/sources/:id`](./api_reference/get-source)
 
@@ -409,8 +401,8 @@ After completing the quickstart, you have the following services:
 | Service | Port | Purpose |
 |---------|------|---------|
 | sercha | 8080 | API server (combined API + Worker mode) |
-| postgres | 5432 | Metadata, users, source configuration |
-| vespa | 19071 | Search engine (config port) |
+| postgres | 5432 | Metadata, users, source configuration (+ pgvector) |
+| opensearch | 9200 | BM25 full-text search |
 
 ## Stopping and Cleanup
 

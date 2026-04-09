@@ -1,0 +1,71 @@
+---
+id: update-capability-preferences
+title: "Update capability preferences"
+description: "Update capability preferences for the current team"
+sidebar_label: "Update capability preferences"
+hide_title: true
+hide_table_of_contents: true
+api: eJzVV01v4zYQ/SuETrtAbCVBAyx8c7IpkG7bDeqkPWSDYCSNbW4oUiUpO67h/94ZUoqtWM6mRXvYi0CTM5w3H2+GXicFutzKykujk1FyWxXgUeRQQSaV9CtRWZyiRZ2jE1NjhZ/TcW1pxwuPUCZHicU/a3T+3BSrZLROcqM9nfISqkrJHPjy9KtjC+vE5XMsgVeVNRVaL9Hxr6w8PXtwCDafP6CGTGHB211857+cnk2CzGUUEWzNGuUEH4moL94xJGkJsscnL6Qu8Enq2XsC61cV0kWZMQpBJ5ujBMsMi4KOH1q5w/YvW9mrRnQPxgJzb2z6fOmz8V7bDO8NZm9I7KDF4HjHz15TEdg3I/x7EDsQ43jHfpT3ve0L9eZ5y2Rf6Sbaoa2u+YveymuKjGwRYm9r3PCGq4x2sXhOj4/3Xfn8ifT+z2qMUepQ5F0OWngzmykUhVnqI5HVXjwHqg0PiYgMRXPzf1CX4aDNzzdKDsoH2VtkUF59FNIFjrMYLxx2/MtQmQB/e7fzlm29vZrbSu4GDp84O9KrVVtvXHrZStQObX+E6tCtigfw+0ZiJyvG1KUs5I9OLOeoOxaXtBAKnBelKeRUEtQen95Im24CWoLIaQ81Xst6H0Vo74e+8r7SC1CyEE37FRn3339Q8N3bxtdXAq0l8C2x6K4uJ8JxWDxBWSlGKfsxvIjiQa9OevKmofZzY+VfIR/fjzdn/TnyaDUoqgi7QBsxfUdu0aZDGvfUj5PR3To5p8JGO6YM0c/7zT3pwIzs3m0bN+Og/RIpi0SUpKo9gwRWSdLty2LQ7e8xQC5Yqa0i2bn31ShNlclBzY3zow/HH05SqGS6OCFm7oq5w3L3Ww8mHNUYpV0/Xgb5pz9uRDynNveIeih+NLYEPxJfGj2xDgebLwkBl6wzRyiQE6uh5BCOmxoOad3GmkB9wlWINaf6t+3D6bLN1oHRw0Pv9ZEQJQ604Hh4oJc1A1XqqWnfb5CH2my8mSDJg/g8mZAr3ajPpJ/X2TA3ZeqC1MA41y5zYzGVzpGTyd6kv7ZyAflqMDU5dfiCuiJRpbKSBk7TPqnah6KxfUFXUfc2C1nwQ7RWahCePKALEi9Be5m3epBbAiFWprY8SjR5TffTOADhaI/qbUh+EOmQCbR1c1wBVYg4HR533CQvl8vlEMLp0NhZ2qi69Oeri8tfJ5cDUhnOfanCEKQRthO0AJw8STj81kXfT8gEiVZUrQR9B8Kr7+/kRQh3ntr/7uHeVCUHMq0UyDhU2fF1Q9i75ABhiVbMNZZYrzNweGvVZsPbVNKWmwUtF2Al11joFUctSZjhj8QCeuxF+IMbxsHiqo4sedERmexRY5znWPlXZXd7z/XtDclmzR8TGvOsYmHJ70n6jpi/JkQzdIWwt04U6FkNM5aNVzJfoekVWyYzoqN2wU61R3q1A/BlJ4h+8Je96lVZr2OfoHi28vHooMZz+4nSnMh7Qv038uPkEw==
+sidebar_class_name: "put api-method"
+info_path: core/api_reference/sercha-core-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update capability preferences"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/capability-preferences"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Update capability preferences for the current team
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"properties":{"bm25_search_enabled":{"description":"BM25SearchEnabled controls BM25 search (requires text indexing)","type":"boolean"},"embedding_indexing_enabled":{"description":"EmbeddingIndexingEnabled controls vector/embedding indexing","type":"boolean"},"text_indexing_enabled":{"description":"TextIndexingEnabled controls BM25 text indexing","type":"boolean"},"vector_search_enabled":{"description":"VectorSearchEnabled controls vector search (requires embedding indexing)","type":"boolean"}},"type":"object"}}},"description":"Capability preferences","required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"OK","content":{"application/json":{"schema":{"properties":{"bm25_search_enabled":{"description":"Search preferences (can toggle down, but requires indexing to be enabled)","type":"boolean"},"embedding_indexing_enabled":{"description":"Enable vector indexing","type":"boolean"},"team_id":{"description":"TeamID is the team these preferences belong to","type":"string"},"text_indexing_enabled":{"description":"Indexing preferences (explicitly controlled by user)","type":"boolean"},"updated_at":{"description":"UpdatedAt tracks when preferences were last modified","type":"string"},"vector_search_enabled":{"description":"Enable vector search (if embedding indexing enabled)","type":"boolean"}},"type":"object"}}}},"400":{"description":"Invalid request body","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"401":{"description":"Unauthorized","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}},"500":{"description":"Internal server error","content":{"application/json":{"schema":{"description":"API error response","properties":{"error":{"example":"invalid request body","type":"string"}},"type":"object"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

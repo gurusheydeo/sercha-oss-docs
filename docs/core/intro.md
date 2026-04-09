@@ -38,7 +38,7 @@ Sercha Core uses hexagonal architecture (ports and adapters) to maintain clean s
                           │
 ┌─────────────────────────▼───────────────────────────────────┐
 │                     Driven Adapters                          │
-│         (PostgreSQL, Redis, Vespa, Embedding APIs)           │
+│    (PostgreSQL, pgvector, OpenSearch, Embedding APIs)        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -58,8 +58,14 @@ Sercha Core runs as a single container with multiple modes:
 
 | Service | Purpose |
 |---------|---------|
-| PostgreSQL | User, document, and source metadata |
-| Vespa | Search engine (BM25 + vector) |
+| PostgreSQL | User, document, source metadata + pgvector for vectors |
+
+### Optional (Search Backends)
+
+| Service | Purpose |
+|---------|---------|
+| OpenSearch | BM25 text search (recommended) |
+| pgvector | Semantic vector search (via PostgreSQL) |
 
 ### Optional
 
