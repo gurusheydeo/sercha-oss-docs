@@ -11,23 +11,22 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Local First',
+    title: 'Self-Hosted',
     image: require('@site/static/img/icon-purple.png').default,
     description: (
       <>
-        Sercha runs entirely on your machine. Your data stays local, fully under
-        your control, with no external dependencies or cloud services required.
+        Your data stays on your infrastructure. Deploy with Docker Compose
+        and keep full control over your search index.
       </>
     ),
   },
   {
-    title: 'Flexible Architecture',
+    title: 'Unified Search',
     image: require('@site/static/img/icon-black.png').default,
     description: (
       <>
-        Whether you're using Sercha via the CLI, integrating the Core engine into
-        your own applications, or extending it with connectors, the system is
-        designed to remain modular, composable, and easy to reason about.
+        Connect GitHub, Google Drive, Notion, and more. Search across all
+        your team's data sources from a single API.
       </>
     ),
   },
@@ -36,8 +35,8 @@ const FeatureList: FeatureItem[] = [
     image: require('@site/static/img/icon-grey.png').default,
     description: (
       <>
-        Open source to the core. Sercha is built by developers, for developers,
-        with a focus on extensibility and transparency.
+        REST API with OpenAPI spec, OAuth2 connectors, and a plugin
+        architecture for adding new data sources.
       </>
     ),
   },

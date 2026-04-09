@@ -67,10 +67,11 @@
   --ifm-color-success: #10B981;
   --ifm-color-success-dark: #0e9f6e;
 
-  /* Code blocks */
+  /* Code blocks — darker background for better contrast in light mode */
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(102, 117, 255, 0.1);
-  --ifm-code-background: #ECECEC;
+  --ifm-code-background: #e0e1e4;
+  --prism-background-color: #2d3748;
 
   /* Links - use accent color */
   --ifm-link-color: #6675FF;
@@ -329,4 +330,383 @@ code {
 /* Hide the default method text that shows before the label */
 .api-method .menu__link {
   text-transform: capitalize;
+}
+
+/* ===========================
+   Code Blocks — Darker background, persistent copy button
+   =========================== */
+
+/* Darker code block background in light mode */
+.prism-code {
+  background-color: #1e2433 !important;
+}
+
+/* Code block title bar styling */
+div[class*='codeBlockTitle'] {
+  background-color: #2a3040 !important;
+  border-bottom: 1px solid #3a4258;
+  color: #c4cad6;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Copy button — always visible */
+button[class*='copyButton'] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: #8892a6;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+button[class*='copyButton']:hover {
+  color: #ffffff;
+  background: rgba(102, 117, 255, 0.2);
+  border-color: var(--sercha-indigo);
+}
+
+/* ===========================
+   Tables — Clean Sercha Style
+   =========================== */
+
+/* All markdown tables — Sercha brand style */
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+table th {
+  background: var(--sercha-ink-slate);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--sercha-indigo);
+  text-align: left;
+}
+
+[data-theme='dark'] table th {
+  background: #2a2d33;
+  color: #e3e4e6;
+}
+
+table th + th {
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Rounded corners on header */
+table thead tr:first-child th:first-child {
+  border-top-left-radius: 8px;
+}
+
+table thead tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+table td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--sercha-silverline);
+  vertical-align: middle;
+  text-align: left;
+}
+
+[data-theme='dark'] table td {
+  border-bottom-color: var(--ifm-color-emphasis-300);
+}
+
+table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Rounded corners on last row */
+table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+
+table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+table tbody tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme='dark'] table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ===========================
+   Connector Guide Styles
+   =========================== */
+
+/* Screenshot container with border, shadow, and caption */
+.screenshot {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--sercha-silverline);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: var(--sercha-mist);
+}
+
+[data-theme='dark'] .screenshot {
+  border-color: var(--ifm-color-emphasis-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background: #242526;
+}
+
+.screenshot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.screenshot-caption {
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  color: var(--sercha-fog-grey);
+  border-top: 1px solid var(--sercha-silverline);
+  background: var(--ifm-background-color);
+}
+
+[data-theme='dark'] .screenshot-caption {
+  border-top-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Step indicator badges */
+.step-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--sercha-indigo);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Prerequisite / info box */
+.prereq-box {
+  border: 1px solid var(--sercha-silverline);
+  border-left: 4px solid var(--sercha-indigo);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: var(--sercha-indigo-soft);
+}
+
+[data-theme='dark'] .prereq-box {
+  background: rgba(127, 140, 255, 0.1);
+  border-color: var(--ifm-color-emphasis-300);
+  border-left-color: var(--sercha-indigo);
+}
+
+.prereq-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Warning / danger callout */
+.warning-box {
+  border: 1px solid var(--sercha-silverline);
+  border-left: 4px solid var(--sercha-terminal-red);
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  background: rgba(255, 95, 86, 0.06);
+}
+
+[data-theme='dark'] .warning-box {
+  background: rgba(255, 95, 86, 0.1);
+  border-color: var(--ifm-color-emphasis-300);
+  border-left-color: var(--sercha-terminal-red);
+}
+
+.warning-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Field reference table (compact, styled) */
+.field-table {
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.field-table th {
+  background: var(--sercha-mist);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+[data-theme='dark'] .field-table th {
+  background: #2e2f31;
+}
+
+/* Next step callout - large CTA card */
+.next-step-box {
+  display: block;
+  border: 2px solid var(--sercha-indigo);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-decoration: none;
+  color: inherit;
+  background: var(--sercha-indigo-soft);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.next-step-box:hover {
+  box-shadow: 0 4px 16px rgba(102, 117, 255, 0.2);
+  transform: translateY(-1px);
+  text-decoration: none;
+  color: inherit;
+}
+
+.next-step-box strong {
+  display: block;
+  font-size: 1.15rem;
+  color: var(--sercha-indigo);
+  margin-bottom: 0.35rem;
+}
+
+.next-step-box span {
+  font-size: 0.9rem;
+  color: var(--sercha-fog-grey);
+}
+
+[data-theme='dark'] .next-step-box {
+  background: rgba(127, 140, 255, 0.1);
+  border-color: var(--sercha-indigo);
+}
+
+[data-theme='dark'] .next-step-box span {
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Guide metadata / last-updated note */
+.guide-meta {
+  display: inline-block;
+  font-size: 0.8rem;
+  color: var(--sercha-fog-grey);
+  background: var(--sercha-mist);
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+[data-theme='dark'] .guide-meta {
+  background: #2e2f31;
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Connector card with logo */
+.connector-card {
+  border: 1px solid var(--sercha-silverline);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background: var(--ifm-background-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+[data-theme='dark'] .connector-card {
+  border-color: var(--ifm-color-emphasis-300);
+  background: #242526;
+}
+
+.connector-card img {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.connector-card-body strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-heading-color);
+}
+
+.connector-card-body span {
+  font-size: 0.85rem;
+  color: var(--sercha-fog-grey);
+}
+
+[data-theme='dark'] .connector-card-body span {
+  color: var(--ifm-color-content-secondary);
+}
+
+/* Inline connector logo in tables */
+.connector-logo {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+/* Connector page title with logo */
+.connector-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.connector-title img {
+  width: 36px;
+  height: 36px;
+}
+
+/* Connector feature list (what gets indexed) */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.feature-card {
+  border: 1px solid var(--sercha-silverline);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  background: var(--ifm-background-color);
+}
+
+[data-theme='dark'] .feature-card {
+  border-color: var(--ifm-color-emphasis-300);
+  background: #242526;
+}
+
+.feature-card strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--ifm-heading-color);
+}
+
+.feature-card span {
+  font-size: 0.85rem;
+  color: var(--sercha-fog-grey);
+}
+
+[data-theme='dark'] .feature-card span {
+  color: var(--ifm-color-content-secondary);
 }

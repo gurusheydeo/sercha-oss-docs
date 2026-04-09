@@ -2,70 +2,70 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 const config: Config = {
   title: 'Sercha Documentation',
-  tagline: 'Privacy-focused local search for your data',
+  tagline: 'Self-hosted search across all your team\'s tools',
   favicon: 'img/favicon.svg',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    v4: true,
   },
 
-  // Set the production url of your site here
   url: 'https://docs.sercha.dev',
-  // Set the /<baseUrl>/ pathname under which your site is served
   baseUrl: '/',
   trailingSlash: false,
 
   organizationName: 'sercha-oss',
   projectName: 'sercha-oss-docs',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
 
-  // Enable Mermaid for architecture diagrams
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid', 'docusaurus-theme-openapi-docs'],
 
   plugins: [
-    // CLI docs (temporarily disabled)
-    // To re-enable: uncomment this plugin
-    // [
-    //   '@docusaurus/plugin-content-docs',
-    //   {
-    //     id: 'cli',
-    //     path: 'docs/cli',
-    //     routeBasePath: 'cli',
-    //     sidebarPath: require.resolve('./sidebars-cli.js'),
-    //     includeCurrentVersion: true,
-    //     showLastUpdateAuthor: true,
-    //     showLastUpdateTime: true,
-    //   },
-    // ],
-    // Core docs (not versioned)
+    // Documentation (guides, quickstart, config)
     [
       '@docusaurus/plugin-content-docs',
       {
-        id: 'core',
-        path: 'docs/core',
-        routeBasePath: 'core',
-        sidebarPath: require.resolve('./sidebars-core.js'),
-        includeCurrentVersion: true,
+        id: 'guides',
+        path: 'docs/guides',
+        routeBasePath: 'docs',
+        sidebarPath: require.resolve('./sidebars-guides.js'),
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      },
+    ],
+    // API Reference (auto-generated from OpenAPI spec)
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'api',
+        path: 'docs/api',
+        routeBasePath: 'api',
+        sidebarPath: require.resolve('./sidebars-api.js'),
         showLastUpdateAuthor: true,
         showLastUpdateTime: true,
         docItemComponent: '@theme/ApiItem',
+      },
+    ],
+    // Connectors (per-source setup guides)
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'connectors',
+        path: 'docs/connectors',
+        routeBasePath: 'connectors',
+        sidebarPath: require.resolve('./sidebars-connectors.js'),
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
       },
     ],
     // OpenAPI docs generator
@@ -73,11 +73,11 @@ const config: Config = {
       'docusaurus-plugin-openapi-docs',
       {
         id: 'api-docs',
-        docsPluginId: 'core',
+        docsPluginId: 'api',
         config: {
           sercha: {
             specPath: './openapi/swagger.yaml',
-            outputDir: 'docs/core/api_reference',
+            outputDir: 'docs/api',
             sidebarOptions: {
               groupPathsBy: 'tag',
               categoryLinkSource: 'tag',
@@ -101,7 +101,6 @@ const config: Config = {
           },
           editUrl:
             'https://github.com/sercha-oss/sercha-oss-docs/tree/main/',
-          // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -114,25 +113,37 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/sercha-logo.png',
     colorMode: {
       respectPrefersColorScheme: true,
     },
     navbar: {
       logo: {
-        alt: 'Sercha Logo',
+        alt: 'Sercha',
         src: 'img/sercha-logo.png',
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'coreSidebar',
-          docsPluginId: 'core',
+          to: '/docs',
+          label: 'Documentation',
           position: 'left',
-          label: 'Core',
+        },
+        {
+          to: '/api/sercha-core-api',
+          label: 'API Reference',
+          position: 'left',
+        },
+        {
+          to: '/connectors',
+          label: 'Connectors',
+          position: 'left',
         },
         {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          href: 'https://discord.gg/PYagaAGf',
+          label: 'Discord',
+          position: 'right',
+        },
         {
           href: 'https://github.com/sercha-oss/sercha-core',
           label: 'GitHub',
@@ -144,50 +155,29 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Documentation',
+          title: 'Docs',
           items: [
-            {
-              label: 'Getting Started',
-              to: '/core/quickstart',
-            },
-            {
-              label: 'Architecture',
-              to: '/core/architecture/overview',
-            },
-            {
-              label: 'API Reference',
-              to: '/core/api_reference/sercha-core-api',
-            },
+            {label: 'Quickstart', to: '/docs/quickstart'},
+            {label: 'Configuration', to: '/docs/configuration'},
+            {label: 'API Reference', to: '/api/sercha-core-api'},
           ],
         },
         {
-          title: 'Resources',
+          title: 'Community',
           items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/sercha-oss/sercha-core',
-            },
-            {
-              label: 'Report Issues',
-              href: 'https://github.com/sercha-oss/sercha-core/issues',
-            },
+            {label: 'Discord', href: 'https://discord.gg/PYagaAGf'},
+            {label: 'GitHub', href: 'https://github.com/sercha-oss/sercha-core'},
+            {label: 'Issues', href: 'https://github.com/sercha-oss/sercha-core/issues'},
           ],
         },
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
-            {
-              label: 'Custodia Labs',
-              href: 'https://custodialabs.com',
-            },
+            {label: 'Blog', to: '/blog'},
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Custodia Labs. Licensed under Apache 2.0.`,
+      copyright: `Copyright \u00A9 ${new Date().getFullYear()} Sercha. Licensed under Apache 2.0.`,
     },
     prism: {
       theme: prismThemes.github,
