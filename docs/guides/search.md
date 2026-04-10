@@ -70,6 +70,58 @@ curl -X POST http://localhost:8080/api/v1/search \
 `hybrid` mode gives the best results when an AI provider with embeddings is configured. If no embedding model is available, Sercha falls back to `text` mode automatically.
 :::
 
+## Filtering by source
+
+Use `source_ids` to restrict results to specific sources. This is useful when you have multiple connected sources and want to search within a subset of them.
+
+```bash title="curl — single source"
+curl -X POST http://localhost:8080/api/v1/search \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "project setup",
+    "source_ids": ["src_abc123"]
+  }'
+```
+
+You can filter by multiple sources at once:
+
+```bash title="curl — multiple sources"
+curl -X POST http://localhost:8080/api/v1/search \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "project setup",
+    "source_ids": ["src_abc123", "src_def456"]
+  }'
+```
+
+Omit `source_ids` (or pass an empty array) to search across all sources.
+
+:::info
+Source IDs are returned in each search result's `source_id` field and can be found via the [List sources](/api/list-sources) endpoint.
+:::
+
+## Pagination
+
+Control the number of results with `limit` and `offset`:
+
+```bash title="curl"
+curl -X POST http://localhost:8080/api/v1/search \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "authentication",
+    "limit": 10,
+    "offset": 20
+  }'
+```
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `limit` | 20 | Maximum number of results to return |
+| `offset` | 0 | Number of results to skip (for paging) |
+
 ## Response fields
 
 Each result contains:
