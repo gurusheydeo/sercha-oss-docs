@@ -25,6 +25,13 @@ Connectors integrate external data sources with Sercha. Each connector handles a
       <span>Files from a server-side directory. Useful for development and testing.</span>
     </div>
   </div>
+  <div className="connector-card">
+    <img src="/assets/logos/notion/notion_icon.png" alt="Notion" />
+    <div className="connector-card-body">
+      <strong><a href="/connectors/notion">Notion</a></strong>
+      <span>Pages, databases, and nested content. Authenticates via OAuth.</span>
+    </div>
+  </div>
 </div>
 
 ## Planned
@@ -34,7 +41,6 @@ These connectors are tracked as GitHub issues. Contributions welcome.
 | Connector | Issue | Auth |
 |-----------|-------|------|
 | <img className="connector-logo" src="/assets/logos/gitlab/gitlab_log.png" alt="GitLab" /> GitLab | [#36](https://github.com/sercha-oss/sercha-core/issues/36) | OAuth |
-| <img className="connector-logo" src="/assets/logos/notion/notion_icon.png" alt="Notion" /> Notion | [#35](https://github.com/sercha-oss/sercha-core/issues/35) | OAuth |
 | <img className="connector-logo" src="/assets/logos/dropbox/dropbox_icon.png" alt="Dropbox" /> Dropbox | [#37](https://github.com/sercha-oss/sercha-core/issues/37) | OAuth |
 | <img className="connector-logo" src="/assets/logos/linear/linear_icon.svg" alt="Linear" /> Linear | [#38](https://github.com/sercha-oss/sercha-core/issues/38) | OAuth |
 | <img className="connector-logo" src="/assets/logos/figma/figma_icon.svg" alt="Figma" /> Figma | [#39](https://github.com/sercha-oss/sercha-core/issues/39) | OAuth |

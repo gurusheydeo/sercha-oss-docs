@@ -33,9 +33,20 @@ git clone https://github.com/sercha-oss/sercha-core.git
 cd sercha-core/examples/quickstart
 ```
 
-## 2. Configure environment variables (optional)
+## 2. Configure environment variables
 
-Sercha works out of the box with BM25 keyword search. To unlock additional features, you can set environment variables before starting the containers. Create a `.env` file in the quickstart directory:
+Create a `.env` file in the quickstart directory. Two secrets are required — without them the container will refuse to start:
+
+```bash title="Terminal"
+cat > .env <<EOF
+JWT_SECRET=$(openssl rand -hex 32)
+MASTER_KEY=$(openssl rand -hex 32)
+EOF
+```
+
+### Optional variables
+
+Sercha works out of the box with BM25 keyword search. To unlock additional features, add any of the following to your `.env` file. You can also add them later and restart the containers.
 
 ```bash title=".env"
 # Optional: enables semantic search (embeddings)
@@ -45,10 +56,6 @@ OPENAI_API_KEY=sk-your-openai-api-key
 GITHUB_CLIENT_ID=your_client_id
 GITHUB_CLIENT_SECRET=your_client_secret
 ```
-
-:::tip
-None of these are mandatory. Without them, Sercha runs with BM25 keyword search only. You can add them later and restart the containers.
-:::
 
 For the `OPENAI_API_KEY`, sign up at [platform.openai.com](https://platform.openai.com/api-keys). For the GitHub credentials, see the [GitHub Connector](/connectors/github) guide.
 
