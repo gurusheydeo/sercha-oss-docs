@@ -6,5 +6,6 @@ module.exports = {
     'configuration',
     'indexing',
     'search',
+    'mcp',
   ],
 };
